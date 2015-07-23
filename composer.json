@@ -1,0 +1,22 @@
+{
+    "name": "eventity/eventity",
+    "type": "library",
+    "require-dev": {
+        "phpspec/phpspec": "^2.3@dev",
+        "behat/behat": "^3.0",
+        "phpunit/phpunit": "^4.7"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Oram",
+            "email": "tom@x2k.co.uk"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Eventity\\": "src/"
+        }
+    }
+}
