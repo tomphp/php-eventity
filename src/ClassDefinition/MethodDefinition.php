@@ -10,19 +10,27 @@ final class MethodDefinition
     private $name;
 
     /**
-     * @param string $name
+     * @var string
      */
-    public static function createPublic($name)
+    private $body;
+
+    /**
+     * @param string $name
+     * @param string $body
+     */
+    public static function createPublic($name, $body = '')
     {
-        return new self($name);
+        return new self($name, $body);
     }
 
     /**
      * @param string $name
+     * @param string $body
      */
-    public function __construct($name)
+    public function __construct($name, $body)
     {
         $this->name = $name;
+        $this->body = $body;
     }
 
     /**
@@ -31,5 +39,13 @@ final class MethodDefinition
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
     }
 }

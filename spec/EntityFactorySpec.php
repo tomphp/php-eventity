@@ -4,29 +4,42 @@ namespace spec\Eventity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Eventity\EntityFactory;
 use Eventity\FactoryBuilder;
 
 class EntityFactorySpec extends ObjectBehavior
 {
     /**
-     * @EntityFactory
+     * @var string
      */
-    private static $factory;
+    private static $factoryClass;
 
     function let()
     {
-        if (!self::$factory) {
-            $builder = new FactoryBuilder();
-            self::$factory = $builder->buildFactory(EntityFactoryTestEntity::class);
-        }
-
-        $this->setWrappedObject(self::$factory);
+        $this->beAnInstanceOf($this->factoryClassName());
     }
 
     function it_creates_an_instance_of_the_entity()
     {
         $this->create()->shouldReturnAnInstanceOf(EntityFactoryTestEntity::class);
+    }
+
+    function it_wraps_the_created_instance_with_an_event_entity_wrapper()
+    {
+        //$this->create()->shouldReturnAnInstanceOf(EventEntity::class);
+    }
+
+    /**
+     * @return string
+     */
+    private function factoryClassName()
+    {
+        if (!self::$factoryClass) {
+            $builder = new FactoryBuilder();
+            $factory = $builder->buildFactory(EntityFactoryTestEntity::class);
+            self::$factoryClass = get_class($factory);
+        }
+
+        return self::$factoryClass;
     }
 }
 

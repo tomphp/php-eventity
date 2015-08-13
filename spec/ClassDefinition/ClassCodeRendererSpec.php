@@ -67,13 +67,17 @@ EOF
     function it_creates_a_class_with_a_public_method()
     {
         $builder = new ClassDefinitionBuilder('TestClass');
-        $builder->addMethod(MethodDefinition::createPublic('testMethod'));
+        $builder->addMethod(MethodDefinition::createPublic(
+            'testMethod',
+            'return "the body";'
+        ));
 
         $this->render($builder->build())->shouldReturn(<<<EOF
 class TestClass
 {
     public function testMethod()
     {
+        return "the body";
     }
 }
 EOF

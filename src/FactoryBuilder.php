@@ -5,6 +5,7 @@ namespace Eventity;
 use Eventity\ClassDefinition\ClassDefinitionBuilder;
 use Eventity\ClassDefinition\ClassCodeRenderer;
 use Eventity\ClassDefinition\MethodDefinition;
+use Eventity\ClassDefinition\ClassDefinition;
 
 final class FactoryBuilder
 {
@@ -20,16 +21,58 @@ final class FactoryBuilder
     {
         $factoryName = self::GENERATED_FACTORY_NAMESPACE . "\\{$className}";
 
+        $entityDefinition = $this->createEntityClassDefinition($className);
+
+        $this->createClassesFromDefinition([
+            $entityDefinition,
+            $this->createFactoryClassDefinition($factoryName, $entityDefinition)
+        ]);
+
+        return new $factoryName();
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return ClassDefinition
+     */
+    private function createEntityClassDefinition($className)
+    {
+        $builder = new EntityClassBuilder($className);
+
+        return $builder->buildEntity();
+    }
+    /**
+     * @param string          $factoryName
+     * @param ClassDefinition $entityDefinition
+     *
+     * @return ClassDefinition
+     */
+    private function createFactoryClassDefinition(
+        $factoryName,
+        ClassDefinition $entityDefinition
+    ) {
         $builder = new ClassDefinitionBuilder($factoryName);
 
         $builder->addInterface(EntityFactory::class);
 
-        $builder->addMethod(MethodDefinition::createPublic(self::DEFAULT_CONSTRUCTOR_METHOD));
+        $builder->addMethod(MethodDefinition::createPublic(
+            self::DEFAULT_CONSTRUCTOR_METHOD,
+            'return new \\' . $entityDefinition->getNamespace() . '\\' . $entityDefinition->getClassName() . '();'
+        ));
 
+        return $builder->build();
+    }
+
+    /**
+     * @param ClassDefinition[] $classes
+     */
+    private function createClassesFromDefinition(array $classes)
+    {
         $renderer = new ClassCodeRenderer();
 
-        eval($renderer->render($builder->build()));
-
-        return new $factoryName();
+        foreach ($classes as $class) {
+            eval($renderer->render($class));
+        }
     }
 }

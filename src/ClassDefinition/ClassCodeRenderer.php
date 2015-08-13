@@ -91,6 +91,8 @@ final class ClassCodeRenderer
             $this->addNewlinesToCode(1);
             $this->code .= "    {";
             $this->addNewlinesToCode(1);
+            $this->code .= "        {$method->getBody()}";
+            $this->addNewlinesToCode(1);
             $this->code .= "    }";
             $this->addNewlinesToCode(1);
         }

@@ -42,7 +42,7 @@ class ClassDefinitionBuilderSpec extends ObjectBehavior
              ->shouldReturn(['InterfaceOne', 'InterfaceTwo']);
     }
 
-    function it_adds_namespaces_to_uses()
+    function it_adds_interface_namespaces_to_uses()
     {
         $this->addInterface('NamespaceA\InterfaceOne');
         $this->addInterface('NamespaceB\InterfaceTwo');
@@ -51,6 +51,20 @@ class ClassDefinitionBuilderSpec extends ObjectBehavior
             'NamespaceA\InterfaceOne',
             'NamespaceB\InterfaceTwo',
         ]);
+    }
+
+    function it_builds_a_class_which_extends_its_parent()
+    {
+        $this->setParent('ParentClass');
+
+        $this->build()->getParent()->shouldReturn('ParentClass');
+    }
+
+    function it_adds_parent_namespace_to_uses()
+    {
+        $this->setParent('NamespaceA\ParentClass');
+
+        $this->build()->getUses()->shouldReturn(['NamespaceA\ParentClass']);
     }
 
     function it_adds_methods()

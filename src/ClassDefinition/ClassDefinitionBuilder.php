@@ -20,6 +20,11 @@ final class ClassDefinitionBuilder
     private $uses = [];
 
     /**
+     * @var string
+     */
+    private $parent;
+
+    /**
      * @var string[]
      */
     private $interfaces = [];
@@ -38,17 +43,19 @@ final class ClassDefinitionBuilder
     }
 
     /**
+     * @param string $parentName
+     */
+    public function setParent($parentName)
+    {
+        $this->parent = $this->getClassNameAndAddToUses($parentName);
+    }
+
+    /**
      * @param string $interfaceName
      */
     public function addInterface($interfaceName)
     {
-        list($namespace, $interface) = $this->splitClassName($interfaceName);
-
-        if ($namespace) {
-            $this->uses[] = $interfaceName;
-        }
-
-        $this->interfaces[] = $interface;
+        $this->interfaces[] = $this->getClassNameAndAddToUses($interfaceName);
     }
 
     public function addMethod(MethodDefinition $method)
@@ -65,9 +72,26 @@ final class ClassDefinitionBuilder
             $this->className,
             $this->namespace,
             $this->uses,
+            $this->parent,
             $this->interfaces,
             $this->methods
         );
+    }
+
+    /**
+     * @param string $fqcn
+     *
+     * @return string
+     */
+    private function getClassNameAndAddToUses($fqcn)
+    {
+        list($namespace, $className) = $this->splitClassName($fqcn);
+
+        if ($namespace) {
+            $this->uses[] = $fqcn;
+        }
+
+        return $className;
     }
 
     /**

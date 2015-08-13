@@ -20,6 +20,11 @@ final class ClassDefinition
     private $uses = [];
 
     /**
+     * @var string
+     */
+    private $parent;
+
+    /**
      * @var string[]
      */
     private $interfaces = [];
@@ -33,6 +38,7 @@ final class ClassDefinition
      * @param string             $className
      * @param string             $namespace
      * @param string[]           $uses
+     * @param string             $parent
      * @param string[]           $interfaces
      * @param MethodDefinition[] $methods
      */
@@ -40,12 +46,14 @@ final class ClassDefinition
         $className,
         $namespace,
         array $uses,
+        $parent,
         array $interfaces,
         array $methods
     ) {
         $this->className = $className;
         $this->namespace = $namespace;
         $this->uses = $uses;
+        $this->parent = $parent;
         $this->interfaces = $interfaces;
         $this->methods = $methods;
     }
@@ -70,6 +78,14 @@ final class ClassDefinition
     public function getUses()
     {
         return $this->uses;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 
     /**
