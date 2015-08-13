@@ -58,9 +58,21 @@ final class ClassCodeRenderer
     private function addClassNameToCode()
     {
         $this->code .= "class {$this->definition->getClassName()}";
+        $this->addParentToDefintion();
         $this->addInterfacesToDefintion();
 
         $this->addNewlinesToCode(1);
+    }
+
+    private function addParentToDefintion()
+    {
+        if (!$this->definition->getParent()) {
+            return;
+        }
+
+        $this->code .= ' extends ';
+
+        $this->code .= $this->definition->getParent();
     }
 
     private function addInterfacesToDefintion()
@@ -97,7 +109,6 @@ final class ClassCodeRenderer
             $this->addNewlinesToCode(1);
         }
     }
-
 
     /**
      * @param int $count

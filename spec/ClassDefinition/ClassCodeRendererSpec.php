@@ -35,6 +35,21 @@ EOF
         );
     }
 
+    function it_creates_a_class_which_extends_a_namespaced_parent()
+    {
+        $builder = new ClassDefinitionBuilder('TestClass');
+        $builder->setParent('Test\Namespace\Parent');
+
+        $this->render($builder->build())->shouldReturn(<<<EOF
+use Test\Namespace\Parent;
+
+class TestClass extends Parent
+{
+}
+EOF
+        );
+    }
+
     function it_creates_a_class_which_implements_interfaces()
     {
         $builder = new ClassDefinitionBuilder('TestClass');

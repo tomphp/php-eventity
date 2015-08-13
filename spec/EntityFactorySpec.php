@@ -5,6 +5,7 @@ namespace spec\Eventity;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Eventity\FactoryBuilder;
+use Eventity\EventEntity;
 
 class EntityFactorySpec extends ObjectBehavior
 {
@@ -25,7 +26,7 @@ class EntityFactorySpec extends ObjectBehavior
 
     function it_wraps_the_created_instance_with_an_event_entity_wrapper()
     {
-        //$this->create()->shouldReturnAnInstanceOf(EventEntity::class);
+        $this->create()->shouldReturnAnInstanceOf(EventEntity::class);
     }
 
     /**

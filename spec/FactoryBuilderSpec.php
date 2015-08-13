@@ -8,33 +8,21 @@ use Eventity\EntityFactory;
 
 class FactoryBuilderSpec extends ObjectBehavior
 {
-    /**
-     * @var int
-     */
-    private static $testCount = 1;
-
-    function __construct()
-    {
-        self::$testCount++;
-    }
-
     function it_builds_a_factory()
     {
-        $this->buildFactory($this->testClass('TestEntity'))
+        $this->buildFactory(TestEntity1::class)
              ->shouldReturnAnInstanceOf(EntityFactory::class);
     }
 
     function it_creates_the_factory_in_the_generated_factory_namespace()
     {
-        $className = $this->testClass('TestEntity');
-
-        $this->buildFactory($className)
-             ->shouldReturnAnInstanceOf("Eventity\Generated\\Factory\\$className");
+        $this->buildFactory(TestEntity2::class)
+             ->shouldReturnAnInstanceOf('Eventity\Generated\\Factory\\' . TestEntity2::class);
     }
 
     function it_creates_a_create_method_on_the_factory()
     {
-        $this->buildFactory($this->testClass('TestEntity'))
+        $this->buildFactory(TestEntity3::class)
              ->shouldHaveMethod('create');
     }
 
@@ -61,4 +49,16 @@ class FactoryBuilderSpec extends ObjectBehavior
 
         return "FactoryBuilder\\Test{$testCount}\\$name";
     }
+}
+
+class TestEntity1
+{
+}
+
+class TestEntity2
+{
+}
+
+class TestEntity3
+{
 }

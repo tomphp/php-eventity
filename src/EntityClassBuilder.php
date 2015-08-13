@@ -28,7 +28,7 @@ final class EntityClassBuilder
      */
     public function buildEntity()
     {
-        $builder = new ClassDefinitionBuilder(self::GENERATED_ENTITY_NAMESPACE . '\\' . $this->entityName);
+        $builder = new ClassDefinitionBuilder(self::GENERATED_ENTITY_NAMESPACE . '\\' . $this->entityName . 'Wrapper');
 
         $builder->setParent($this->entityName);
         $builder->addInterface(EventEntity::class);
