@@ -45,7 +45,10 @@ class EntityClassBuilderSpec extends ObjectBehavior
 
     function it_adds_a_getNewEvents_method_to_the_class()
     {
-        $this->buildEntity()->getMethods()[0]->shouldBeLike(MethodDefinition::createPublic('getNewEvents'));
+        $method = $this->buildEntity()->getMethods()[0];
+
+        $method->shouldBeAnInstanceOf(MethodDefinition::class);
+        $method->getName()->shouldBe('getNewEvents');
     }
 }
 

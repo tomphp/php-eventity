@@ -33,7 +33,7 @@ final class EntityClassBuilder
         $builder->setParent($this->entityName);
         $builder->addInterface(EventEntity::class);
 
-        $builder->addMethod(MethodDefinition::createPublic('getNewEvents'));
+        $builder->addMethod(MethodDefinition::createPublic('getNewEvents', "return [new \\Eventity\\Event('Create', '{$this->entityName}')];"));
 
         return $builder->build();
     }

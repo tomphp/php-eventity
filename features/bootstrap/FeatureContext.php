@@ -8,6 +8,7 @@ use Behat\Gherkin\Node\TableNode;
 use Eventity\FactoryBuilder;
 use Eventity\ClassDefinition\ClassDefinitionBuilder;
 use Eventity\ClassDefinition\ClassCodeRenderer;
+use Eventity\Event;
 
 class FeatureContext implements Context, SnippetAcceptingContext
 {
