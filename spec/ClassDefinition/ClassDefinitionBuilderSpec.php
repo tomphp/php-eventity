@@ -7,7 +7,7 @@ use Prophecy\Argument;
 use Eventity\ClassDefinition\ClassDefinition;
 use Eventity\ClassDefinition\MethodDefinition;
 
-class ClassDefinitionBuilderSpec extends ObjectBehavior
+final class ClassDefinitionBuilderSpec extends ObjectBehavior
 {
     const NAME_SPACE = 'Test\Space';
     const CLASS_NAME = 'TestClass';

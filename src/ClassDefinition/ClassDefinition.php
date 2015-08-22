@@ -2,7 +2,8 @@
 
 namespace Eventity\ClassDefinition;
 
-final class ClassDefinition
+/** @final */
+class ClassDefinition
 {
     /**
      * @var string
@@ -72,6 +73,16 @@ final class ClassDefinition
     public function getNamespace()
     {
         return $this->namespace;
+    }
+
+    /** @return string */
+    public function getFQCN()
+    {
+        if (!$this->namespace) {
+            return $this->className;
+        }
+
+        return $this->namespace . '\\' . $this->className;
     }
 
     /** @return string[] */

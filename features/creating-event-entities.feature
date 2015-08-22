@@ -5,6 +5,6 @@ Feature: Creating Event Entity
 
   Scenario: Create a newly wrapped entity
     Given there is an entity class named TestEntity
-    When I create an instance of TestEntity via the factory
+    When I create an instance with the factory for TestEntity
     Then the instance should have one new Create event
     And the event should have a new UID

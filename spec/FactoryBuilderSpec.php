@@ -5,60 +5,60 @@ namespace spec\Eventity;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Eventity\EntityFactory;
+use Eventity\ClassDefinition\ClassDefinition;
+use Eventity\ClassDefinition\ClassDefinitionBuilder;
+use Eventity\ClassDefinition\ClassDeclarer;
+use Eventity\ClassDefinition\ClassInstantiater;
 
-class FactoryBuilderSpec extends ObjectBehavior
+final class FactoryBuilderSpec extends ObjectBehavior
 {
-    function it_builds_a_factory()
-    {
-        $this->buildFactory(TestEntity1::class)
-             ->shouldReturnAnInstanceOf(EntityFactory::class);
+    const ENTITY_NAMESPACE = 'TestNamespace';
+    const ENTITY_NAME      = 'TestEntity';
+
+    /** @var ClassDefinition */
+    private $factoryDefinition;
+
+    function let() {
+        $wrapperDefinition = (new ClassDefinitionBuilder(
+            self::ENTITY_NAMESPACE . '\\' . self::ENTITY_NAME
+        ))->build();
+
+        $this->factoryDefinition = $this->buildFactory($wrapperDefinition);
     }
 
-    function it_creates_the_factory_in_the_generated_factory_namespace()
+    function it_returns_a_class_definition()
     {
-        $this->buildFactory(TestEntity2::class)
-             ->shouldReturnAnInstanceOf('Eventity\Generated\\Factory\\' . TestEntity2::class);
+        $this->factoryDefinition->shouldBeAnInstanceOf(ClassDefinition::class);
     }
 
-    function it_creates_a_create_method_on_the_factory()
+    function it_sets_the_class_name_to_the_entity_name()
     {
-        $this->buildFactory(TestEntity3::class)
-             ->shouldHaveMethod('create');
+        $this->factoryDefinition->getClassName()->shouldReturn(self::ENTITY_NAME);
     }
 
-    /**
-     * @return array
-     */
-    function getMatchers()
+    function it_sets_namespace_to_the_generated_factory_namespace()
     {
-        return [
-            'haveMethod' => function($subject, $method) {
-                return method_exists($subject, $method);
-            },
-        ];
+        $this->factoryDefinition
+            ->getNamespace()
+            ->shouldReturn('Eventity\\Generated\\Factory\\TestNamespace');
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    private function testClass($name)
+    function it_sets_the_class_to_implement_entity_factory()
     {
-        $testCount = self::$testCount;
+        $this->factoryDefinition
+            ->getInterfaces()
+            ->shouldContain('EntityFactory');
 
-        return "FactoryBuilder\\Test{$testCount}\\$name";
+        $this->factoryDefinition
+            ->getUses()
+            ->shouldContain(EntityFactory::class);
     }
-}
 
-class TestEntity1
-{
-}
-
-class TestEntity2
-{
-}
-
-class TestEntity3
-{
+    function it_adds_the_default_create_method()
+    {
+        $this->factoryDefinition
+            ->getMethods()[0]
+            ->getName()
+            ->shouldReturn('create');
+    }
 }

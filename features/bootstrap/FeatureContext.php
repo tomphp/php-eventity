@@ -9,6 +9,8 @@ use Eventity\FactoryBuilder;
 use Eventity\ClassDefinition\ClassDefinitionBuilder;
 use Eventity\ClassDefinition\ClassCodeRenderer;
 use Eventity\Event;
+use Eventity\ClassDefinition\ClassDeclarer;
+use Eventity\Eventity;
 
 class FeatureContext implements Context, SnippetAcceptingContext
 {
@@ -38,20 +40,18 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function thereIsAnEntityClassNamed($className)
     {
         $builder = new ClassDefinitionBuilder($this->createTestClassName($className));
-        $renderer = new ClassCodeRenderer();
 
-        eval($renderer->render($builder->build()));
+        (new ClassDeclarer(new ClassCodeRenderer()))->declareClass($builder->build());
     }
 
     /**
-     * @When I create an instance of :className via the factory
+     * @When I create an instance with the factory for :className
      */
-    public function iCreateAnInstanceOfViaTheFactory($className)
+    public function iCreateAnInstanceWithTheFactoryFor($className)
     {
-        $factory = $this->factoryBuilder
-                        ->buildFactory($this->createTestClassName($className));
-
-        $this->instance = $factory->create();
+        $this->instance = Eventity::getInstance()
+            ->getFactoryFor($this->createTestClassName($className))
+            ->create();
     }
 
     /**

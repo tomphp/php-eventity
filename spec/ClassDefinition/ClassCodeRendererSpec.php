@@ -7,7 +7,7 @@ use Prophecy\Argument;
 use Eventity\ClassDefinition\ClassDefinitionBuilder;
 use Eventity\ClassDefinition\MethodDefinition;
 
-class ClassCodeRendererSpec extends ObjectBehavior
+final class ClassCodeRendererSpec extends ObjectBehavior
 {
     function it_is_creates_an_empty_class()
     {

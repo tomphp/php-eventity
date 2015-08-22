@@ -6,34 +6,29 @@ use Eventity\ClassDefinition\ClassDefinitionBuilder;
 use Eventity\ClassDefinition\MethodDefinition;
 use Eventity\ClassDefinition\ClassDefinition;
 
-final class EntityClassBuilder
+/** @final */
+class EntityClassBuilder
 {
     const GENERATED_ENTITY_NAMESPACE = 'Eventity\\Generated\\Entity';
 
     /**
-     * @var string
-     */
-    private $entityName;
-
-    /**
      * @param string $entityName
-     */
-    public function __construct($entityName)
-    {
-        $this->entityName = $entityName;
-    }
-
-    /**
+     *
      * @return ClassDefinition
      */
-    public function buildEntity()
+    public function buildEntity($entityName)
     {
-        $builder = new ClassDefinitionBuilder(self::GENERATED_ENTITY_NAMESPACE . '\\' . $this->entityName . 'Wrapper');
+        $builder = new ClassDefinitionBuilder(
+            self::GENERATED_ENTITY_NAMESPACE . '\\' . $entityName . 'Wrapper'
+        );
 
-        $builder->setParent($this->entityName);
+        $builder->setParent($entityName);
         $builder->addInterface(EventEntity::class);
 
-        $builder->addMethod(MethodDefinition::createPublic('getNewEvents', "return [new \\Eventity\\Event('Create', '{$this->entityName}')];"));
+        $builder->addMethod(MethodDefinition::createPublic(
+            'getNewEvents',
+            "return [new \\Eventity\\Event('Create', '{$entityName}')];"
+        ));
 
         return $builder->build();
     }
