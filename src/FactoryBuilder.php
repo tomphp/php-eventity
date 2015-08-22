@@ -3,12 +3,8 @@
 namespace Eventity;
 
 use Eventity\ClassDefinition\ClassDefinitionBuilder;
-use Eventity\ClassDefinition\ClassCodeRenderer;
 use Eventity\ClassDefinition\MethodDefinition;
 use Eventity\ClassDefinition\ClassDefinition;
-use Eventity\EntityClassBuilder;
-use Eventity\ClassDefinition\ClassDeclarer;
-use Eventity\ClassDefinition\ClassInstantiater;
 
 /** @final */
 class FactoryBuilder
@@ -21,7 +17,7 @@ class FactoryBuilder
      */
     public function buildFactory(ClassDefinition $wrapperDefinition)
     {
-        $factoryName = self::GENERATED_FACTORY_NAMESPACE . '\\' . $wrapperDefinition->getFQCN();
+        $factoryName = self::GENERATED_FACTORY_NAMESPACE.'\\'.$wrapperDefinition->getFQCN();
 
         $builder = new ClassDefinitionBuilder($factoryName);
 

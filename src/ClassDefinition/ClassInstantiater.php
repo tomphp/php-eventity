@@ -16,7 +16,7 @@ class ClassInstantiater
     public function instantiate($className, $args = [])
     {
         if (!$args) {
-            return new $className;
+            return new $className();
         }
 
         $reflection = new ReflectionClass($className);

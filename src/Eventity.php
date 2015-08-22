@@ -2,8 +2,6 @@
 
 namespace Eventity;
 
-use Eventity\EntityClassBuilder;
-use Eventity\FactoryBuilder;
 use Eventity\ClassDefinition\ClassDeclarer;
 use Eventity\ClassDefinition\ClassInstantiater;
 use Eventity\ClassDefinition\ClassDefinition;

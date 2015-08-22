@@ -35,6 +35,8 @@
     "scripts": {
         "test": [
             "vendor/bin/phpcs --standard=psr2 src",
+            "vendor/bin/phpcs --standard=phpcs/ruleset-for-contexts.xml features/bootstrap",
+            "vendor/bin/phpcs --standard=phpcs/ruleset-for-tests.xml spec integration",
             "vendor/bin/phpspec --ansi run",
             "vendor/bin/phpunit --testdox",
             "vendor/bin/behat --colors"

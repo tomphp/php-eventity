@@ -59,7 +59,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theInstanceShouldHaveOneNewEvent($eventName)
     {
-        $eventNames = array_map(function(Event $event) {
+        $eventNames = array_map(function (Event $event) {
             return $event->getName();
         }, $this->instance->getNewEvents());
 

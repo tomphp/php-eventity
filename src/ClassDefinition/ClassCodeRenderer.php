@@ -88,12 +88,12 @@ final class ClassCodeRenderer
 
     private function addBodyToCode()
     {
-        $this->code .= "{";
+        $this->code .= '{';
         $this->addNewlinesToCode(1);
 
         $this->addMethodsToCode();
 
-        $this->code .= "}";
+        $this->code .= '}';
     }
 
     private function addMethodsToCode()
@@ -101,11 +101,11 @@ final class ClassCodeRenderer
         foreach ($this->definition->getMethods() as $method) {
             $this->code .= "    public function {$method->getName()}()";
             $this->addNewlinesToCode(1);
-            $this->code .= "    {";
+            $this->code .= '    {';
             $this->addNewlinesToCode(1);
             $this->code .= "        {$method->getBody()}";
             $this->addNewlinesToCode(1);
-            $this->code .= "    }";
+            $this->code .= '    }';
             $this->addNewlinesToCode(1);
         }
     }

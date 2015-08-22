@@ -18,7 +18,8 @@ final class FactoryBuilderSpec extends ObjectBehavior
     /** @var ClassDefinition */
     private $factoryDefinition;
 
-    function let() {
+    function let()
+    {
         $wrapperDefinition = (new ClassDefinitionBuilder(
             self::ENTITY_NAMESPACE . '\\' . self::ENTITY_NAME
         ))->build();

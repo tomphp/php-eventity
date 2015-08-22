@@ -82,7 +82,7 @@ class ClassDefinition
             return $this->className;
         }
 
-        return $this->namespace . '\\' . $this->className;
+        return $this->namespace.'\\'.$this->className;
     }
 
     /** @return string[] */

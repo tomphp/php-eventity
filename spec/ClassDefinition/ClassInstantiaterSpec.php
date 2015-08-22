@@ -9,21 +9,21 @@ final class ClassInstantiaterSpec extends ObjectBehavior
 {
     function it_creates_an_instance_of_the_class_by_name()
     {
-        $this->instantiate(ClassInstantiaterSpec_TestClass::class)
-            ->shouldReturnAnInstanceOf(ClassInstantiaterSpec_TestClass::class);
+        $this->instantiate(ClassInstantiater_SpecTestClass::class)
+            ->shouldReturnAnInstanceOf(ClassInstantiater_SpecTestClass::class);
     }
 
     function it_creates_a_class_with_constructor_arguments()
     {
         $args = [1, 'two', 3.0, false];
 
-        $instance = $this->instantiate(ClassInstantiaterSpec_TestClass::class, $args);
+        $instance = $this->instantiate(ClassInstantiater_SpecTestClass::class, $args);
 
         $instance->getConstructorArgs()->shouldBeLike($args);
     }
 }
 
-final class ClassInstantiaterSpec_TestClass
+final class ClassInstantiater_SpecTestClass
 {
     /**
      * @var mixed[]

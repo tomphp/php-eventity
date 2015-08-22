@@ -19,7 +19,7 @@ class EntityClassBuilder
     public function buildEntity($entityName)
     {
         $builder = new ClassDefinitionBuilder(
-            self::GENERATED_ENTITY_NAMESPACE . '\\' . $entityName . 'Wrapper'
+            self::GENERATED_ENTITY_NAMESPACE.'\\'.$entityName.'Wrapper'
         );
 
         $builder->setParent($entityName);

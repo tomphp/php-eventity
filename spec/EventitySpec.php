@@ -31,7 +31,7 @@ final class EventitySpec extends ObjectBehavior
         );
 
         $wrapperBuilder->buildEntity(self::ENTITY_NAME)->willReturn($wrapper);
-        $factoryBuilder->buildFactory($wrapper)->willReturn($factory);;
+        $factoryBuilder->buildFactory($wrapper)->willReturn($factory);
         $instantiater->instantiate(Argument::any())->willReturn('instance');
     }
 
@@ -73,8 +73,11 @@ final class EventitySpec extends ObjectBehavior
         $declarer->declareClass(Argument::any())->shouldHaveBeenCalledTimes(2);
     }
 
-    function it_only_declares_the_classes_for_seperate_entities(ClassDeclarer $declarer, EntityClassBuilder $wrapperBuilder, ClassDefinition $wrapper)
-    {
+    function it_only_declares_the_classes_for_seperate_entities(
+        ClassDeclarer $declarer,
+        EntityClassBuilder $wrapperBuilder,
+        ClassDefinition $wrapper
+    ) {
         $wrapperBuilder->buildEntity('ADifferentEntity')->willReturn($wrapper);
 
         $this->getFactoryFor(self::ENTITY_NAME);
