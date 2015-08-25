@@ -21,5 +21,4 @@ final class ClassDefinitionTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('name', $definition->getClassName());
     }
-
 }

@@ -4,8 +4,7 @@ namespace Eventity\Code;
 
 use Eventity\Code\ClassDefinition\Builder;
 
-/** @final */
-class ClassDefinition
+final class ClassDefinition
 {
     /**
      * @var string

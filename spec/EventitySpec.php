@@ -14,14 +14,23 @@ use Eventity\Eventity;
 final class EventitySpec extends ObjectBehavior
 {
     const ENTITY_NAME = 'TestEntity';
+    const FACTORY_NAME = 'TestFactory';
+
+    /**
+     * @var ClassDefinition
+     */
+    private $wrapper;
+
+    /**
+     * @var ClassDefinition
+     */
+    private $factory;
 
     function let(
         WrapperBuilder $wrapperBuilder,
         FactoryBuilder $factoryBuilder,
         ClassDeclarer $declarer,
-        ClassInstantiater $instantiater,
-        ClassDefinition $wrapper,
-        ClassDefinition $factory
+        ClassInstantiater $instantiater
     ) {
         $this->beConstructedWith(
             $wrapperBuilder,
@@ -30,37 +39,29 @@ final class EventitySpec extends ObjectBehavior
             $instantiater
         );
 
-        $wrapperBuilder->build(self::ENTITY_NAME)->willReturn($wrapper);
-        $factoryBuilder->build($wrapper)->willReturn($factory);
+        $this->wrapper = ClassDefinition::builder('wrapper')->build();
+        $this->factory = ClassDefinition::builder(self::FACTORY_NAME)->build();
+
+        $wrapperBuilder->build(self::ENTITY_NAME)->willReturn($this->wrapper);
+        $factoryBuilder->build($this->wrapper)->willReturn($this->factory);
         $instantiater->instantiate(Argument::any())->willReturn('instance');
     }
 
-    function it_declares_the_entity_wrapper(
-        ClassDefinition $wrapper,
-        ClassDeclarer $declarer
-    ) {
+    function it_declares_the_entity_wrapper(ClassDeclarer $declarer) {
         $this->getFactoryFor(self::ENTITY_NAME);
 
-        $declarer->declareClass($wrapper)->shouldHaveBeenCalled();
+        $declarer->declareClass($this->wrapper)->shouldHaveBeenCalled();
     }
 
-    function it_declares_the_entity_factory(
-        ClassDefinition $factory,
-        ClassDeclarer $declarer
-    ) {
+    function it_declares_the_entity_factory(ClassDeclarer $declarer) {
         $this->getFactoryFor(self::ENTITY_NAME);
 
-        $declarer->declareClass($factory)->shouldHaveBeenCalled();
+        $declarer->declareClass($this->factory)->shouldHaveBeenCalled();
     }
 
-    function it_returns_an_instance_of_the_factory(
-        ClassDefinition $factory,
-        ClassInstantiater $instantiater
-    ) {
-        $factoryName = 'TestFactory';
+    function it_returns_an_instance_of_the_factory(ClassInstantiater $instantiater) {
         $instance = 'test_factory_instance';
-        $factory->getFQCN()->willReturn($factoryName);
-        $instantiater->instantiate($factoryName)->willReturn($instance);
+        $instantiater->instantiate(self::FACTORY_NAME)->willReturn($instance);
 
         $this->getFactoryFor(self::ENTITY_NAME)->shouldReturn($instance);
     }
@@ -75,10 +76,9 @@ final class EventitySpec extends ObjectBehavior
 
     function it_only_declares_the_classes_for_seperate_entities(
         ClassDeclarer $declarer,
-        WrapperBuilder $wrapperBuilder,
-        ClassDefinition $wrapper
+        WrapperBuilder $wrapperBuilder
     ) {
-        $wrapperBuilder->build('ADifferentEntity')->willReturn($wrapper);
+        $wrapperBuilder->build('ADifferentEntity')->willReturn($this->wrapper);
 
         $this->getFactoryFor(self::ENTITY_NAME);
         $this->getFactoryFor('ADifferentEntity');
@@ -87,7 +87,6 @@ final class EventitySpec extends ObjectBehavior
     }
 
     function it_returns_the_same_factory_for_multiple_class(
-        ClassDefinition $factory,
         ClassInstantiater $instantiater
     ) {
         $instance = 'test_factory_instance';
