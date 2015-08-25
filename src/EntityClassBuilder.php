@@ -2,9 +2,9 @@
 
 namespace Eventity;
 
-use Eventity\ClassDefinition\ClassDefinitionBuilder;
-use Eventity\ClassDefinition\MethodDefinition;
-use Eventity\ClassDefinition\ClassDefinition;
+use Eventity\Code\ClassDefinitionBuilder;
+use Eventity\Code\MethodDefinition;
+use Eventity\Code\ClassDefinition;
 
 /** @final */
 class EntityClassBuilder

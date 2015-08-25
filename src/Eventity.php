@@ -2,10 +2,10 @@
 
 namespace Eventity;
 
-use Eventity\ClassDefinition\ClassDeclarer;
-use Eventity\ClassDefinition\ClassInstantiater;
-use Eventity\ClassDefinition\ClassDefinition;
-use Eventity\ClassDefinition\ClassCodeRenderer;
+use Eventity\Code\ClassDeclarer;
+use Eventity\Code\ClassInstantiater;
+use Eventity\Code\ClassDefinition;
+use Eventity\Code\ClassCodeRenderer;
 
 final class Eventity
 {

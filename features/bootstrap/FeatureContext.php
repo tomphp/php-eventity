@@ -6,12 +6,12 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Eventity\FactoryBuilder;
-use Eventity\ClassDefinition\ClassDefinitionBuilder;
-use Eventity\ClassDefinition\ClassCodeRenderer;
+use Eventity\Code\ClassDefinitionBuilder;
+use Eventity\Code\ClassCodeRenderer;
 use Eventity\Event;
-use Eventity\ClassDefinition\ClassDeclarer;
+use Eventity\Code\ClassDeclarer;
 use Eventity\Eventity;
-use Eventity\ClassDefinition\MethodDefinition;
+use Eventity\Code\MethodDefinition;
 
 class FeatureContext implements Context, SnippetAcceptingContext
 {

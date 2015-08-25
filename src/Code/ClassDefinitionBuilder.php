@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventity\ClassDefinition;
+namespace Eventity\Code;
 
 final class ClassDefinitionBuilder
 {

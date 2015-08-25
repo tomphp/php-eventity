@@ -4,9 +4,9 @@ namespace spec\Eventity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Eventity\ClassDefinition\ClassDefinition;
+use Eventity\Code\ClassDefinition;
 use Eventity\EventEntity;
-use Eventity\ClassDefinition\MethodDefinition;
+use Eventity\Code\MethodDefinition;
 
 final class EntityClassBuilderSpec extends ObjectBehavior
 {

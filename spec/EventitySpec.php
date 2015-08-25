@@ -5,10 +5,10 @@ namespace spec\Eventity;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Eventity\EntityClassBuilder;
-use Eventity\ClassDefinition\ClassDefinition;
-use Eventity\ClassDefinition\ClassDeclarer;
+use Eventity\Code\ClassDefinition;
+use Eventity\Code\ClassDeclarer;
 use Eventity\FactoryBuilder;
-use Eventity\ClassDefinition\ClassInstantiater;
+use Eventity\Code\ClassInstantiater;
 use Eventity\Eventity;
 
 final class EventitySpec extends ObjectBehavior

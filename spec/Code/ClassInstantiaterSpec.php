@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Eventity\ClassDefinition;
+namespace spec\Eventity\Code;
 
-use Eventity\ClassDefinition\ClassInstantiater;
+use Eventity\Code\ClassInstantiater;
 use PhpSpec\ObjectBehavior;
 
 final class ClassInstantiaterSpec extends ObjectBehavior

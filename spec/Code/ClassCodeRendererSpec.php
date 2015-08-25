@@ -1,11 +1,11 @@
 <?php
 
-namespace spec\Eventity\ClassDefinition;
+namespace spec\Eventity\Code;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Eventity\ClassDefinition\ClassDefinitionBuilder;
-use Eventity\ClassDefinition\MethodDefinition;
+use Eventity\Code\ClassDefinitionBuilder;
+use Eventity\Code\MethodDefinition;
 
 final class ClassCodeRendererSpec extends ObjectBehavior
 {

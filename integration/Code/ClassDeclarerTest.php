@@ -1,11 +1,11 @@
 <?php
 
-namespace integration\Eventity\ClassDefinition;
+namespace integration\Eventity\Code;
 
 use PHPUnit_Framework_TestCase;
-use Eventity\ClassDefinition\ClassDefinitionBuilder;
-use Eventity\ClassDefinition\ClassDeclarer;
-use Eventity\ClassDefinition\ClassCodeRenderer;
+use Eventity\Code\ClassDefinitionBuilder;
+use Eventity\Code\ClassDeclarer;
+use Eventity\Code\ClassCodeRenderer;
 
 class ClassDeclarerTest extends PHPUnit_Framework_TestCase
 {
