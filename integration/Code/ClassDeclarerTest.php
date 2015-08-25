@@ -3,7 +3,7 @@
 namespace integration\Eventity\Code;
 
 use PHPUnit_Framework_TestCase;
-use Eventity\Code\ClassDefinitionBuilder;
+use Eventity\Code\ClassDefinition;
 use Eventity\Code\ClassDeclarer;
 use Eventity\Code\ClassCodeRenderer;
 
@@ -14,7 +14,7 @@ class ClassDeclarerTest extends PHPUnit_Framework_TestCase
     {
         $className = 'integration\generated\GeneratedClass';
 
-        $builder = new ClassDefinitionBuilder($className);
+        $builder = ClassDefinition::builder($className);
         $definition = $builder->build();
 
         $declarer = new ClassDeclarer(new ClassCodeRenderer());

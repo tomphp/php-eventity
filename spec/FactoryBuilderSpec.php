@@ -6,7 +6,6 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Eventity\EntityFactory;
 use Eventity\Code\ClassDefinition;
-use Eventity\Code\ClassDefinitionBuilder;
 use Eventity\Code\ClassDeclarer;
 use Eventity\Code\ClassInstantiater;
 
@@ -20,9 +19,9 @@ final class FactoryBuilderSpec extends ObjectBehavior
 
     function let()
     {
-        $wrapperDefinition = (new ClassDefinitionBuilder(
+        $wrapperDefinition = ClassDefinition::builder(
             self::ENTITY_NAMESPACE . '\\' . self::ENTITY_NAME
-        ))->build();
+        )->build();
 
         $this->factoryDefinition = $this->buildFactory($wrapperDefinition);
     }

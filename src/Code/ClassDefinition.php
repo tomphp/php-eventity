@@ -2,6 +2,8 @@
 
 namespace Eventity\Code;
 
+use Eventity\Code\ClassDefinition\Builder;
+
 /** @final */
 class ClassDefinition
 {
@@ -34,6 +36,16 @@ class ClassDefinition
      * @var MethodDefinition[]
      */
     private $methods = [];
+
+    /**
+     * @param string $name
+     *
+     * @return Builder
+     */
+    public static function builder($name)
+    {
+        return new Builder($name);
+    }
 
     /**
      * @param string             $className

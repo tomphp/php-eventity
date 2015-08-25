@@ -1,13 +1,13 @@
 <?php
 
-namespace spec\Eventity\Code;
+namespace spec\Eventity\Code\ClassDefinition;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Eventity\Code\ClassDefinition;
 use Eventity\Code\MethodDefinition;
 
-final class ClassDefinitionBuilderSpec extends ObjectBehavior
+final class BuilderSpec extends ObjectBehavior
 {
     const NAME_SPACE = 'Test\Space';
     const CLASS_NAME = 'TestClass';

@@ -2,7 +2,6 @@
 
 namespace Eventity;
 
-use Eventity\Code\ClassDefinitionBuilder;
 use Eventity\Code\MethodDefinition;
 use Eventity\Code\ClassDefinition;
 
@@ -19,7 +18,7 @@ class FactoryBuilder
     {
         $factoryName = self::GENERATED_FACTORY_NAMESPACE.'\\'.$wrapperDefinition->getFQCN();
 
-        $builder = new ClassDefinitionBuilder($factoryName);
+        $builder = ClassDefinition::builder($factoryName);
 
         $builder->addInterface(EntityFactory::class);
 

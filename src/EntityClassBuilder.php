@@ -2,7 +2,6 @@
 
 namespace Eventity;
 
-use Eventity\Code\ClassDefinitionBuilder;
 use Eventity\Code\MethodDefinition;
 use Eventity\Code\ClassDefinition;
 
@@ -18,7 +17,7 @@ class EntityClassBuilder
      */
     public function buildEntity($entityName)
     {
-        $builder = new ClassDefinitionBuilder(
+        $builder = ClassDefinition::builder(
             self::GENERATED_ENTITY_NAMESPACE.'\\'.$entityName.'Wrapper'
         );
 

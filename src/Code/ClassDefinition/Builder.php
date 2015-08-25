@@ -1,8 +1,11 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\ClassDefinition;
 
-final class ClassDefinitionBuilder
+use Eventity\Code\ClassDefinition;
+use Eventity\Code\MethodDefinition;
+
+final class Builder
 {
     /**
      * @var string

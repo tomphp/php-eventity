@@ -6,7 +6,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Eventity\FactoryBuilder;
-use Eventity\Code\ClassDefinitionBuilder;
+use Eventity\Code\ClassDefinition;
 use Eventity\Code\ClassCodeRenderer;
 use Eventity\Event;
 use Eventity\Code\ClassDeclarer;
@@ -40,7 +40,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function thereIsAnEntityClassNamed($className)
     {
-        $builder = new ClassDefinitionBuilder($this->createTestClassName($className));
+        $builder = ClassDefinition::builder($this->createTestClassName($className));
 
         (new ClassDeclarer(new ClassCodeRenderer()))->declareClass($builder->build());
     }
@@ -50,7 +50,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function thereIsAnEntityClassNamedTestentityWithAMethodCalled($className, $action)
     {
-        $builder = new ClassDefinitionBuilder($this->createTestClassName($className));
+        $builder = ClassDefinition::builder($this->createTestClassName($className));
 
         $builder->addMethod(MethodDefinition::createPublic(
             $action,
