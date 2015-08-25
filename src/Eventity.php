@@ -52,8 +52,8 @@ final class Eventity
     {
         if (!self::$instance) {
             self::$instance = new self(
-                new WrapperBuilder(),
-                new FactoryBuilder(),
+                new DefaultWrapperBuilder(),
+                new DefaultFactoryBuilder(),
                 new ClassDeclarer(new ClassCodeRenderer()),
                 new ClassInstantiater()
             );

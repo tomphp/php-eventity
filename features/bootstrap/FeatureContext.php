@@ -21,18 +21,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
     private static $scenarioCount = 0;
 
     /**
-     * @var FactoryBuilder
-     */
-    private $factoryBuilder;
-
-    /**
      * @BeforeScenario
      */
     public function beforeScenario()
     {
         self::$scenarioCount++;
-
-        $this->factoryBuilder = new FactoryBuilder();
     }
 
     /**

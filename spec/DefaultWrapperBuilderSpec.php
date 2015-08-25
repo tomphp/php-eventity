@@ -8,7 +8,7 @@ use Eventity\Code\ClassDefinition;
 use Eventity\EventEntity;
 use Eventity\Code\MethodDefinition;
 
-final class WrapperBuilderSpec extends ObjectBehavior
+final class DefaultWrapperBuilderSpec extends ObjectBehavior
 {
     function let()
     {

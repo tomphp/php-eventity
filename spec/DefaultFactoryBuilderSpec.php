@@ -9,7 +9,7 @@ use Eventity\Code\ClassDefinition;
 use Eventity\Code\ClassDeclarer;
 use Eventity\Code\ClassInstantiater;
 
-final class FactoryBuilderSpec extends ObjectBehavior
+final class DefaultFactoryBuilderSpec extends ObjectBehavior
 {
     const ENTITY_NAMESPACE = 'TestNamespace';
     const ENTITY_NAME      = 'TestEntity';
