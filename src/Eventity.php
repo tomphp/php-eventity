@@ -5,6 +5,7 @@ namespace Eventity;
 use Eventity\Code\ClassDeclarer;
 use Eventity\Code\ClassInstantiater;
 use Eventity\Code\ClassDefinition;
+use Eventity\Code\DefaultClassCodeRenderer;
 use Eventity\Code\ClassCodeRenderer;
 
 final class Eventity
@@ -54,7 +55,7 @@ final class Eventity
             self::$instance = new self(
                 new DefaultWrapperBuilder(),
                 new DefaultFactoryBuilder(),
-                new ClassDeclarer(new ClassCodeRenderer()),
+                new ClassDeclarer(new DefaultClassCodeRenderer()),
                 new ClassInstantiater()
             );
         }

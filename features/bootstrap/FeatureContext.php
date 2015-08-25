@@ -1,17 +1,17 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Eventity\FactoryBuilder;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\ClassCodeRenderer;
-use Eventity\Event;
 use Eventity\Code\ClassDeclarer;
-use Eventity\Eventity;
+use Eventity\Code\ClassDefinition;
+use Eventity\Code\DefaultClassCodeRenderer;
 use Eventity\Code\MethodDefinition;
+use Eventity\Event;
+use Eventity\Eventity;
+use Eventity\FactoryBuilder;
 
 class FeatureContext implements Context, SnippetAcceptingContext
 {
@@ -35,7 +35,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $builder = ClassDefinition::builder($this->createTestClassName($className));
 
-        (new ClassDeclarer(new ClassCodeRenderer()))->declareClass($builder->build());
+        (new ClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($builder->build());
     }
 
     /**
@@ -59,7 +59,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
             'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;'
         ));
 
-        (new ClassDeclarer(new ClassCodeRenderer()))->declareClass($builder->build());
+        (new ClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($builder->build());
     }
 
     /**
