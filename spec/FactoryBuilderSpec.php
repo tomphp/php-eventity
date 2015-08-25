@@ -23,7 +23,7 @@ final class FactoryBuilderSpec extends ObjectBehavior
             self::ENTITY_NAMESPACE . '\\' . self::ENTITY_NAME
         )->build();
 
-        $this->factoryDefinition = $this->buildFactory($wrapperDefinition);
+        $this->factoryDefinition = $this->build($wrapperDefinition);
     }
 
     function it_returns_a_class_definition()

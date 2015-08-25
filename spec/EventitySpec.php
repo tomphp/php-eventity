@@ -30,8 +30,8 @@ final class EventitySpec extends ObjectBehavior
             $instantiater
         );
 
-        $wrapperBuilder->buildEntity(self::ENTITY_NAME)->willReturn($wrapper);
-        $factoryBuilder->buildFactory($wrapper)->willReturn($factory);
+        $wrapperBuilder->build(self::ENTITY_NAME)->willReturn($wrapper);
+        $factoryBuilder->build($wrapper)->willReturn($factory);
         $instantiater->instantiate(Argument::any())->willReturn('instance');
     }
 
@@ -78,7 +78,7 @@ final class EventitySpec extends ObjectBehavior
         WrapperBuilder $wrapperBuilder,
         ClassDefinition $wrapper
     ) {
-        $wrapperBuilder->buildEntity('ADifferentEntity')->willReturn($wrapper);
+        $wrapperBuilder->build('ADifferentEntity')->willReturn($wrapper);
 
         $this->getFactoryFor(self::ENTITY_NAME);
         $this->getFactoryFor('ADifferentEntity');

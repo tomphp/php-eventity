@@ -14,7 +14,7 @@ class FactoryBuilder
     /**
      * @return ClassDefinition
      */
-    public function buildFactory(ClassDefinition $wrapperDefinition)
+    public function build(ClassDefinition $wrapperDefinition)
     {
         $factoryName = self::GENERATED_FACTORY_NAMESPACE.'\\'.$wrapperDefinition->getFQCN();
 

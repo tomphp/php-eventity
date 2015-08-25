@@ -15,7 +15,7 @@ class WrapperBuilder
      *
      * @return ClassDefinition
      */
-    public function buildEntity($entityName)
+    public function build($entityName)
     {
         $builder = ClassDefinition::builder(
             self::GENERATED_ENTITY_NAMESPACE.'\\'.$entityName.'Wrapper'
