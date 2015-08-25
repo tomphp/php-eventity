@@ -4,7 +4,7 @@ namespace spec\Eventity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Eventity\EntityClassBuilder;
+use Eventity\WrapperBuilder;
 use Eventity\Code\ClassDefinition;
 use Eventity\Code\ClassDeclarer;
 use Eventity\FactoryBuilder;
@@ -16,7 +16,7 @@ final class EventitySpec extends ObjectBehavior
     const ENTITY_NAME = 'TestEntity';
 
     function let(
-        EntityClassBuilder $wrapperBuilder,
+        WrapperBuilder $wrapperBuilder,
         FactoryBuilder $factoryBuilder,
         ClassDeclarer $declarer,
         ClassInstantiater $instantiater,
@@ -75,7 +75,7 @@ final class EventitySpec extends ObjectBehavior
 
     function it_only_declares_the_classes_for_seperate_entities(
         ClassDeclarer $declarer,
-        EntityClassBuilder $wrapperBuilder,
+        WrapperBuilder $wrapperBuilder,
         ClassDefinition $wrapper
     ) {
         $wrapperBuilder->buildEntity('ADifferentEntity')->willReturn($wrapper);

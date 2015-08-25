@@ -9,7 +9,7 @@ use Eventity\Code\ClassCodeRenderer;
 
 final class Eventity
 {
-    /** @var EntityClassBuilder */
+    /** @var WrapperBuilder */
     private $wrapperBuilder;
 
     /** @var FactoryBuilder */
@@ -28,13 +28,13 @@ final class Eventity
     private static $instance;
 
     /**
-     * @param EntityClassBuilder $wrapperBuilder
-     * @param FactoryBuilder     $factoryBuilder
-     * @param ClassDeclarer      $classDeclarer
-     * @param ClassInstantiater  $classInstantiater
+     * @param WrapperBuilder    $wrapperBuilder
+     * @param FactoryBuilder    $factoryBuilder
+     * @param ClassDeclarer     $classDeclarer
+     * @param ClassInstantiater $classInstantiater
      */
     public function __construct(
-        EntityClassBuilder $wrapperBuilder,
+        WrapperBuilder $wrapperBuilder,
         FactoryBuilder $factoryBuilder,
         ClassDeclarer $classDeclarer,
         ClassInstantiater $classInstantiater
@@ -52,7 +52,7 @@ final class Eventity
     {
         if (!self::$instance) {
             self::$instance = new self(
-                new EntityClassBuilder(),
+                new WrapperBuilder(),
                 new FactoryBuilder(),
                 new ClassDeclarer(new ClassCodeRenderer()),
                 new ClassInstantiater()

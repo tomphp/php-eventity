@@ -6,7 +6,7 @@ use Eventity\Code\MethodDefinition;
 use Eventity\Code\ClassDefinition;
 
 /** @final */
-class EntityClassBuilder
+class WrapperBuilder
 {
     const GENERATED_ENTITY_NAMESPACE = 'Eventity\\Generated\\Entity';
 
