@@ -2,12 +2,13 @@
 
 namespace Eventity;
 
+use Eventity\Code\ClassCodeRenderer;
 use Eventity\Code\ClassDeclarer;
-use Eventity\Code\ClassInstantiater;
 use Eventity\Code\ClassDefinition;
+use Eventity\Code\ClassInstantiater;
 use Eventity\Code\DefaultClassCodeRenderer;
 use Eventity\Code\EvalClassDeclarer;
-use Eventity\Code\ClassCodeRenderer;
+use Eventity\Code\ReflectionClassInstantiater;
 
 final class Eventity
 {
@@ -57,7 +58,7 @@ final class Eventity
                 new DefaultWrapperBuilder(),
                 new DefaultFactoryBuilder(),
                 new EvalClassDeclarer(new DefaultClassCodeRenderer()),
-                new ClassInstantiater()
+                new ReflectionClassInstantiater()
             );
         }
 

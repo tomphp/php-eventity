@@ -2,10 +2,7 @@
 
 namespace Eventity\Code;
 
-use ReflectionClass;
-
-/** @final */
-class ClassInstantiater
+interface ClassInstantiater
 {
     /**
      * @param string  $className
@@ -13,14 +10,5 @@ class ClassInstantiater
      *
      * @return object
      */
-    public function instantiate($className, $args = [])
-    {
-        if (!$args) {
-            return new $className();
-        }
-
-        $reflection = new ReflectionClass($className);
-
-        return $reflection->newInstanceArgs($args);
-    }
+    public function instantiate($className, $args = []);
 }

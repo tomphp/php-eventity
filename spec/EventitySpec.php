@@ -47,19 +47,22 @@ final class EventitySpec extends ObjectBehavior
         $instantiater->instantiate(Argument::any())->willReturn('instance');
     }
 
-    function it_declares_the_entity_wrapper(ClassDeclarer $declarer) {
+    function it_declares_the_entity_wrapper(ClassDeclarer $declarer)
+    {
         $this->getFactoryFor(self::ENTITY_NAME);
 
         $declarer->declareClass($this->wrapper)->shouldHaveBeenCalled();
     }
 
-    function it_declares_the_entity_factory(ClassDeclarer $declarer) {
+    function it_declares_the_entity_factory(ClassDeclarer $declarer)
+    {
         $this->getFactoryFor(self::ENTITY_NAME);
 
         $declarer->declareClass($this->factory)->shouldHaveBeenCalled();
     }
 
-    function it_returns_an_instance_of_the_factory(ClassInstantiater $instantiater) {
+    function it_returns_an_instance_of_the_factory(ClassInstantiater $instantiater)
+    {
         $instance = 'test_factory_instance';
         $instantiater->instantiate(self::FACTORY_NAME)->willReturn($instance);
 

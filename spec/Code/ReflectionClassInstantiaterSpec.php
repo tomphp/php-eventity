@@ -2,28 +2,28 @@
 
 namespace spec\Eventity\Code;
 
-use Eventity\Code\ClassInstantiater;
+use Eventity\Code\ReflectionClassInstantiater;
 use PhpSpec\ObjectBehavior;
 
-final class ClassInstantiaterSpec extends ObjectBehavior
+final class ReflectionClassInstantiaterSpec extends ObjectBehavior
 {
     function it_creates_an_instance_of_the_class_by_name()
     {
-        $this->instantiate(ClassInstantiater_SpecTestClass::class)
-            ->shouldReturnAnInstanceOf(ClassInstantiater_SpecTestClass::class);
+        $this->instantiate(ReflectionClassInstantiater_SpecTestClass::class)
+            ->shouldReturnAnInstanceOf(ReflectionClassInstantiater_SpecTestClass::class);
     }
 
     function it_creates_a_class_with_constructor_arguments()
     {
         $args = [1, 'two', 3.0, false];
 
-        $instance = $this->instantiate(ClassInstantiater_SpecTestClass::class, $args);
+        $instance = $this->instantiate(ReflectionClassInstantiater_SpecTestClass::class, $args);
 
         $instance->getConstructorArgs()->shouldBeLike($args);
     }
 }
 
-final class ClassInstantiater_SpecTestClass
+final class ReflectionClassInstantiater_SpecTestClass
 {
     /**
      * @var mixed[]
