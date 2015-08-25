@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "033941f259366edac14a17bd8c54a383",
+    "hash": "a112b08c91c4f1c9760561830e20f659",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2027,6 +2027,33 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2015-07-28 14:07:07"
+        },
+        {
+            "name": "tomphp/php-standards",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomphp/php-standards.git",
+                "reference": "e3e6e2ef8807a7d7605f1c4b8b8ed50392ad9824"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomphp/php-standards/zipball/e3e6e2ef8807a7d7605f1c4b8b8ed50392ad9824",
+                "reference": "e3e6e2ef8807a7d7605f1c4b8b8ed50392ad9824",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Oram",
+                    "email": "tom@x2k.co.uk"
+                }
+            ],
+            "time": "2015-08-25 14:50:57"
         }
     ],
     "aliases": [],

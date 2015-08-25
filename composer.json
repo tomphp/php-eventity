@@ -25,7 +25,8 @@
         "behat/behat": "^3.0",
         "bossa/phpspec2-expect": "^1.0",
         "phpunit/phpunit": "^4.8",
-        "squizlabs/php_codesniffer": "^2.3"
+        "squizlabs/php_codesniffer": "^2.3",
+        "tomphp/php-standards": "^0.1.0"
     },
     "autoload-dev": {
         "psr-4": {
@@ -36,8 +37,8 @@
     "scripts": {
         "test": [
             "vendor/bin/phpcs --standard=psr2 src",
-            "vendor/bin/phpcs --standard=phpcs/ruleset-for-contexts.xml features/bootstrap",
-            "vendor/bin/phpcs --standard=phpcs/ruleset-for-tests.xml spec integration",
+            "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-contexts.xml features/bootstrap",
+            "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-tests.xml spec integration",
             "vendor/bin/phpspec --ansi run",
             "vendor/bin/phpunit --testdox",
             "vendor/bin/behat --colors"
