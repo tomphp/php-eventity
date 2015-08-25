@@ -4,10 +4,10 @@ namespace integration\Eventity\Code;
 
 use PHPUnit_Framework_TestCase;
 use Eventity\Code\ClassDefinition;
-use Eventity\Code\ClassDeclarer;
+use Eventity\Code\EvalClassDeclarer;
 use Eventity\Code\DefaultClassCodeRenderer;
 
-class ClassDeclarerTest extends PHPUnit_Framework_TestCase
+class EvalClassDeclarerTest extends PHPUnit_Framework_TestCase
 {
     /** @test */
     function it_declares_a_class()
@@ -17,7 +17,7 @@ class ClassDeclarerTest extends PHPUnit_Framework_TestCase
         $builder = ClassDefinition::builder($className);
         $definition = $builder->build();
 
-        $declarer = new ClassDeclarer(new DefaultClassCodeRenderer());
+        $declarer = new EvalClassDeclarer(new DefaultClassCodeRenderer());
 
         $declarer->declareClass($definition);
 

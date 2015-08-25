@@ -2,24 +2,7 @@
 
 namespace Eventity\Code;
 
-/** @final */
-class ClassDeclarer
+interface ClassDeclarer
 {
-    /**
-     * @var ClassCodeRenderer
-     */
-    private $renderer;
-
-    /**
-     * @param ClassCodeRenderer $renderer
-     */
-    public function __construct(ClassCodeRenderer $renderer)
-    {
-        $this->renderer = $renderer;
-    }
-
-    public function declareClass(ClassDefinition $definition)
-    {
-        eval($this->renderer->render($definition));
-    }
+    public function declareClass(ClassDefinition $definition);
 }
