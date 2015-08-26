@@ -9,9 +9,6 @@ final class EvalClassDeclarer implements ClassDeclarer
      */
     private $renderer;
 
-    /**
-     * @param ClassCodeRenderer $renderer
-     */
     public function __construct(ClassCodeRenderer $renderer)
     {
         $this->renderer = $renderer;

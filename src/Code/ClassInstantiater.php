@@ -10,5 +10,5 @@ interface ClassInstantiater
      *
      * @return object
      */
-    public function instantiate($className, $args = []);
+    public function instantiate($className, array $args = []);
 }

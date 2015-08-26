@@ -2,6 +2,8 @@
 
 namespace Eventity\Code;
 
+use Assert\Assertion;
+
 final class MethodDefinition
 {
     /**
@@ -29,6 +31,9 @@ final class MethodDefinition
      */
     public function __construct($name, $body)
     {
+        Assertion::string($name);
+        Assertion::string($body);
+
         $this->name = $name;
         $this->body = $body;
     }

@@ -4,6 +4,8 @@ namespace Eventity\Code\ClassDefinition;
 
 use Eventity\Code\ClassDefinition;
 use Eventity\Code\MethodDefinition;
+use Eventity\Exception\BuilderIncompleteException;
+use Assert\Assertion;
 
 final class Builder
 {
@@ -39,31 +41,51 @@ final class Builder
 
     /**
      * @param string $fqcn
+     *
+     * @return self
      */
-    public function __construct($fqcn)
+    public function setClassName($fqcn)
     {
-        $this->setClassAndNamespace($fqcn);
+        Assertion::string($fqcn);
+
+        list($this->namespace, $this->className) = $this->splitClassName($fqcn);
+
+        return $this;
     }
 
     /**
      * @param string $parentName
+     *
+     * @return self
      */
     public function setParent($parentName)
     {
+        Assertion::string($parentName);
+
         $this->parent = $this->getClassNameAndAddToUses($parentName);
+
+        return $this;
     }
 
     /**
      * @param string $interfaceName
+     *
+     * @return self
      */
     public function addInterface($interfaceName)
     {
+        Assertion::string($interfaceName);
+
         $this->interfaces[] = $this->getClassNameAndAddToUses($interfaceName);
+
+        return $this;
     }
 
     public function addMethod(MethodDefinition $method)
     {
         $this->methods[] = $method;
+
+        return $this;
     }
 
     /**
@@ -71,6 +93,8 @@ final class Builder
      */
     public function build()
     {
+        $this->assertBuilderIsComplete();
+
         return new ClassDefinition(
             $this->className,
             $this->namespace,
@@ -79,6 +103,16 @@ final class Builder
             $this->interfaces,
             $this->methods
         );
+    }
+
+    /**
+     * @throws BuilderIncompleteException
+     */
+    private function assertBuilderIsComplete()
+    {
+        if (!$this->className) {
+            throw new BuilderIncompleteException('Class name is not set');
+        }
     }
 
     /**
@@ -95,14 +129,6 @@ final class Builder
         }
 
         return $className;
-    }
-
-    /**
-     * @param string $fqcn
-     */
-    private function setClassAndNamespace($fqcn)
-    {
-        list($this->namespace, $this->className) = $this->splitClassName($fqcn);
     }
 
     /**

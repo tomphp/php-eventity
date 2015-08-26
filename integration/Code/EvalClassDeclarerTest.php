@@ -14,8 +14,9 @@ class EvalClassDeclarerTest extends PHPUnit_Framework_TestCase
     {
         $className = 'integration\generated\GeneratedClass';
 
-        $builder = ClassDefinition::builder($className);
-        $definition = $builder->build();
+        $definition = ClassDefinition::builder()
+            ->setClassName($className)
+            ->build();
 
         $declarer = new EvalClassDeclarer(new DefaultClassCodeRenderer());
 

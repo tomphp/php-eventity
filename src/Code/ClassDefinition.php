@@ -37,11 +37,9 @@ final class ClassDefinition
     private $methods = [];
 
     /**
-     * @param string $name
-     *
      * @return Builder
      */
-    public static function builder($name)
+    public static function builder()
     {
         return new Builder($name);
     }

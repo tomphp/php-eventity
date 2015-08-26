@@ -33,9 +33,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function thereIsAnEntityClassNamed($className)
     {
-        $builder = ClassDefinition::builder($this->createTestClassName($className));
+        $entityDefinition = ClassDefinition::builder()
+            ->setClassName($this->createTestClassName($className))
+            ->build();
 
-        (new EvalClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($builder->build());
+        (new EvalClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($entityDefinition);
     }
 
     /**
@@ -43,23 +45,23 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function thereIsAnEntityClassNamedTestentityWithAMethodCalled($className, $action)
     {
-        $builder = ClassDefinition::builder($this->createTestClassName($className));
+        $entityDefinition = ClassDefinition::builder()
+            ->setClassName($this->createTestClassName($className))
 
-        $builder->addMethod(MethodDefinition::createPublic(
-            $action,
-            "if (\$this->calls['$action']) \$this->calls['$action'] = 0;\n"
-            . "\$this->calls['$action']++;"
-        ));
+            ->addMethod(MethodDefinition::createPublic(
+                $action,
+                "if (\$this->calls['$action']) \$this->calls['$action'] = 0;\n"
+                . "\$this->calls['$action']++;"
+            ))
 
-        $builder->addProperty(Scope::publicScope(), 'calls', Value::emptyArray());
+            ->addProperty(Scope::publicScope(), 'calls', Value::emptyArray())
+            ->addMethod(MethodDefinition::createPulicWithArgs(
+                'getCalls',
+                ['methodName'],
+                'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;'
+            ));
 
-        $builder->addMethod(MethodDefinition::createPulicWithArgs(
-            'getCalls',
-            ['methodName'],
-            'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;'
-        ));
-
-        (new EvalClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($builder->build());
+        (new EvalClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($entityDefinition);
     }
 
     /**

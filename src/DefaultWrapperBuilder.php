@@ -16,18 +16,14 @@ final class DefaultWrapperBuilder implements WrapperBuilder
      */
     public function build($entityName)
     {
-        $builder = ClassDefinition::builder(
-            self::GENERATED_ENTITY_NAMESPACE.'\\'.$entityName.'Wrapper'
-        );
-
-        $builder->setParent($entityName);
-        $builder->addInterface(EventEntity::class);
-
-        $builder->addMethod(MethodDefinition::createPublic(
-            'getNewEvents',
-            "return [new \\Eventity\\Event('Create', '{$entityName}')];"
-        ));
-
-        return $builder->build();
+        return ClassDefinition::builder()
+            ->setClassName(self::GENERATED_ENTITY_NAMESPACE . '\\' . $entityName . 'Wrapper')
+            ->setParent($entityName)
+            ->addInterface(EventEntity::class)
+            ->addMethod(MethodDefinition::createPublic(
+                'getNewEvents',
+                "return [new \\Eventity\\Event('Create', '{$entityName}')];"
+            ))
+            ->build();
     }
 }

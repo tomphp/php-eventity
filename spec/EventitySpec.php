@@ -39,8 +39,13 @@ final class EventitySpec extends ObjectBehavior
             $instantiater
         );
 
-        $this->wrapper = ClassDefinition::builder('wrapper')->build();
-        $this->factory = ClassDefinition::builder(self::FACTORY_NAME)->build();
+        $this->wrapper = ClassDefinition::builder()
+            ->setClassName('wrapper')
+            ->build();
+
+        $this->factory = ClassDefinition::builder()
+            ->setClassName(self::FACTORY_NAME)
+            ->build();
 
         $wrapperBuilder->build(self::ENTITY_NAME)->willReturn($this->wrapper);
         $factoryBuilder->build($this->wrapper)->willReturn($this->factory);

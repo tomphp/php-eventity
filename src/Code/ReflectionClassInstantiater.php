@@ -3,17 +3,14 @@
 namespace Eventity\Code;
 
 use ReflectionClass;
+use Assert\Assertion;
 
 final class ReflectionClassInstantiater implements ClassInstantiater
 {
-    /**
-     * @param string  $className
-     * @param mixed[] $args
-     *
-     * @return object
-     */
-    public function instantiate($className, $args = [])
+    public function instantiate($className, array $args = [])
     {
+        Assertion::string($className);
+
         if (!$args) {
             return new $className();
         }
