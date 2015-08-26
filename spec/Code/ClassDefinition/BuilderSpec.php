@@ -7,6 +7,7 @@ use Prophecy\Argument;
 use Eventity\Code\ClassDefinition;
 use Eventity\Code\MethodDefinition;
 use Eventity\Exception\BuilderIncompleteException;
+use Eventity\Code\FieldDefinition;
 
 final class BuilderSpec extends ObjectBehavior
 {
@@ -101,6 +102,25 @@ final class BuilderSpec extends ObjectBehavior
         $this->setParent('NamespaceA\ParentClass');
 
         $this->build()->getUses()->shouldReturn(['NamespaceA\ParentClass']);
+    }
+
+    function it_provides_a_fluent_interface_for_addField()
+    {
+        $this->addField(FieldDefinition::createPrivate('fieldName'))
+            ->shouldReturn($this->getWrappedObject());
+    }
+
+    function it_adds_properties()
+    {
+        $this->setClassName(self::FQCN);
+
+        $field1 = FieldDefinition::createPrivate('fieldOne');
+        $field2 = FieldDefinition::createPrivate('fieldTwo');
+
+        $this->addField($field1);
+        $this->addField($field2);
+
+        $this->build()->getFields()->shouldReturn([$field1, $field2]);
     }
 
     function it_provides_a_fluent_interface_for_addMethod()

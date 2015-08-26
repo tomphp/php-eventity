@@ -29,6 +29,15 @@ final class MethodDefinition
      * @param string $name
      * @param string $body
      */
+    public static function createPublicWithArgs($name, array $arguments, $body = '')
+    {
+        return new self($name, $body);
+    }
+
+    /**
+     * @param string $name
+     * @param string $body
+     */
     public function __construct($name, $body)
     {
         Assertion::string($name);

@@ -4,6 +4,8 @@ namespace Eventity\Code;
 
 final class DefaultClassCodeRenderer implements ClassCodeRenderer
 {
+    const INDENT_SIZE = 4;
+
     /**
      * @var ClassDefinition
      */
@@ -13,6 +15,11 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
      * @var string
      */
     private $code;
+
+    /**
+     * @var int
+     */
+    private $indentLevel = 0;
 
     /**
      * @return string
@@ -37,8 +44,8 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
             return;
         }
 
-        $this->code .= "namespace {$this->definition->getNamespace()};";
-        $this->addNewlinesToCode(2);
+        $this->addLine("namespace {$this->definition->getNamespace()};");
+        $this->addNewline();
     }
 
     private function addUsesToCode()
@@ -48,11 +55,10 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
         }
 
         foreach ($this->definition->getUses() as $use) {
-            $this->code .= "use $use;";
-            $this->addNewlinesToCode(1);
+            $this->addLine("use $use;");
         }
 
-        $this->addNewlinesToCode(1);
+        $this->addNewline();
     }
 
     private function addClassNameToCode()
@@ -61,7 +67,7 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
         $this->addParentToDefintion();
         $this->addInterfacesToDefintion();
 
-        $this->addNewlinesToCode(1);
+        $this->addNewline();
     }
 
     private function addParentToDefintion()
@@ -88,33 +94,66 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
 
     private function addBodyToCode()
     {
-        $this->code .= '{';
-        $this->addNewlinesToCode(1);
+        $this->addLine('{');
 
+        $this->indent();
+
+        $this->addFieldsToCode();
         $this->addMethodsToCode();
 
-        $this->code .= '}';
+        $this->outdent();
+
+        $this->addLine('}');
+    }
+
+    private function addFieldsToCode()
+    {
+        foreach ($this->definition->getFields() as $field) {
+            $this->addLine("private \${$field->getName()};");
+        }
     }
 
     private function addMethodsToCode()
     {
         foreach ($this->definition->getMethods() as $method) {
-            $this->code .= "    public function {$method->getName()}()";
-            $this->addNewlinesToCode(1);
-            $this->code .= '    {';
-            $this->addNewlinesToCode(1);
-            $this->code .= "        {$method->getBody()}";
-            $this->addNewlinesToCode(1);
-            $this->code .= '    }';
-            $this->addNewlinesToCode(1);
+            $this->addLine("public function {$method->getName()}()");
+            $this->addLine('{');
+            $this->indent();
+            foreach (explode("\n", $method->getBody()) as $line) {
+                $this->addLine($line);
+            }
+            $this->outdent();
+            $this->addLine('}');
         }
+    }
+
+    /**
+     * @param string $line
+     */
+    private function addLine($line)
+    {
+        $numSpaces = self::INDENT_SIZE * $this->indentLevel;
+        $indent = str_repeat(' ', $numSpaces);
+
+        $this->code .=  $indent . $line;
+        $this->addNewline();
+    }
+
+    private function indent()
+    {
+        $this->indentLevel++;
+    }
+
+    private function outdent()
+    {
+        $this->indentLevel--;
     }
 
     /**
      * @param int $count
      */
-    private function addNewlinesToCode($count)
+    private function addNewline()
     {
-        $this->code .= str_repeat(PHP_EOL, $count);
+        $this->code .= PHP_EOL;
     }
 }

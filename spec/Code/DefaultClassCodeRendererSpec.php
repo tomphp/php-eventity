@@ -5,6 +5,7 @@ namespace spec\Eventity\Code;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Eventity\Code\ClassDefinition;
+use Eventity\Code\FieldDefinition;
 use Eventity\Code\MethodDefinition;
 
 final class DefaultClassCodeRendererSpec extends ObjectBehavior
@@ -19,6 +20,7 @@ final class DefaultClassCodeRendererSpec extends ObjectBehavior
 class TestClass
 {
 }
+
 EOF
         );
     }
@@ -35,6 +37,7 @@ namespace Test\Namespace;
 class NSClass
 {
 }
+
 EOF
         );
     }
@@ -52,6 +55,7 @@ use Test\Namespace\Parent;
 class TestClass extends Parent
 {
 }
+
 EOF
         );
     }
@@ -68,6 +72,7 @@ EOF
 class TestClass implements InterfaceOne, InterfaceTwo
 {
 }
+
 EOF
         );
     }
@@ -85,6 +90,24 @@ use Test\Namespace\TestInterface;
 class TestClass implements TestInterface
 {
 }
+
+EOF
+        );
+    }
+
+    function it_creates_a_class_with_a_private_field()
+    {
+        $definition = ClassDefinition::builder()
+            ->setClassName('TestClass')
+            ->addField(FieldDefinition::createPrivate('testField'))
+            ->build();
+
+        $this->render($definition)->shouldReturn(<<<EOF
+class TestClass
+{
+    private \$testField;
+}
+
 EOF
         );
     }
@@ -107,6 +130,31 @@ class TestClass
         return "the body";
     }
 }
+
+EOF
+        );
+    }
+
+    function it_indents_multiline_method_bodies()
+    {
+        $definition = ClassDefinition::builder()
+            ->setClassName('TestClass')
+            ->addMethod(MethodDefinition::createPublic(
+                'testMethod',
+                "\$line1;\n\$line2;"
+            ))
+            ->build();
+
+        $this->render($definition)->shouldReturn(<<<EOF
+class TestClass
+{
+    public function testMethod()
+    {
+        \$line1;
+        \$line2;
+    }
+}
+
 EOF
         );
     }

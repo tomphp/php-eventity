@@ -12,6 +12,9 @@ use Eventity\Code\MethodDefinition;
 use Eventity\Event;
 use Eventity\Eventity;
 use Eventity\FactoryBuilder;
+use Eventity\Code\FieldDefinition;
+use Eventity\Code\Value;
+use Eventity\Code\ArgumentDefinition;
 
 class FeatureContext implements Context, SnippetAcceptingContext
 {
@@ -50,16 +53,17 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
             ->addMethod(MethodDefinition::createPublic(
                 $action,
-                "if (\$this->calls['$action']) \$this->calls['$action'] = 0;\n"
+                "if (!isset(\$this->calls['$action'])) \$this->calls['$action'] = 0;\n"
                 . "\$this->calls['$action']++;"
             ))
 
-            ->addProperty(Scope::publicScope(), 'calls', Value::emptyArray())
-            ->addMethod(MethodDefinition::createPulicWithArgs(
+            ->addField(FieldDefinition::createPrivate('calls', Value::emptyArray()))
+            ->addMethod(MethodDefinition::createPublicWithArgs(
                 'getCalls',
-                ['methodName'],
+                [ArgumentDefinition::create('methodName')],
                 'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;'
-            ));
+            ))
+            ->build();
 
         (new EvalClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($entityDefinition);
     }

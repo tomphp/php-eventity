@@ -6,6 +6,7 @@ use Eventity\Code\ClassDefinition;
 use Eventity\Code\MethodDefinition;
 use Eventity\Exception\BuilderIncompleteException;
 use Assert\Assertion;
+use Eventity\Code\FieldDefinition;
 
 final class Builder
 {
@@ -33,6 +34,11 @@ final class Builder
      * @var string[]
      */
     private $interfaces = [];
+
+    /**
+     * @var FieldDefinition
+     */
+    private $fields = [];
 
     /**
      * @var MethodDefinition[]
@@ -81,6 +87,19 @@ final class Builder
         return $this;
     }
 
+    /**
+     * @return self
+     */
+    public function addField(FieldDefinition $field)
+    {
+        $this->fields[] = $field;
+
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
     public function addMethod(MethodDefinition $method)
     {
         $this->methods[] = $method;
@@ -101,6 +120,7 @@ final class Builder
             $this->uses,
             $this->parent,
             $this->interfaces,
+            $this->fields,
             $this->methods
         );
     }

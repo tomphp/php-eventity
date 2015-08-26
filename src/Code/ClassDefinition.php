@@ -32,6 +32,11 @@ final class ClassDefinition
     private $interfaces = [];
 
     /**
+     * @var FieldDefinition
+     */
+    private $fields = [];
+
+    /**
      * @var MethodDefinition[]
      */
     private $methods = [];
@@ -50,6 +55,7 @@ final class ClassDefinition
      * @param string[]           $uses
      * @param string             $parent
      * @param string[]           $interfaces
+     * @param FieldDefinition[]  $fields
      * @param MethodDefinition[] $methods
      */
     public function __construct(
@@ -58,6 +64,7 @@ final class ClassDefinition
         array $uses,
         $parent,
         array $interfaces,
+        array $fields,
         array $methods
     ) {
         $this->className = $className;
@@ -65,6 +72,7 @@ final class ClassDefinition
         $this->uses = $uses;
         $this->parent = $parent;
         $this->interfaces = $interfaces;
+        $this->fields = $fields;
         $this->methods = $methods;
     }
 
@@ -114,6 +122,14 @@ final class ClassDefinition
     public function getInterfaces()
     {
         return $this->interfaces;
+    }
+
+    /**
+     * @return FieldDefinition
+     */
+    public function getFields()
+    {
+        return $this->fields;
     }
 
     /**
