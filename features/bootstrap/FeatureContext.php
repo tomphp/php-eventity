@@ -15,6 +15,7 @@ use Eventity\FactoryBuilder;
 use Eventity\Code\FieldDefinition;
 use Eventity\Code\Value;
 use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\DefaultCodeRenderer;
 
 class FeatureContext implements Context, SnippetAcceptingContext
 {
@@ -40,7 +41,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
             ->setClassName($this->createTestClassName($className))
             ->build();
 
-        (new EvalClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($entityDefinition);
+        (new EvalClassDeclarer(new DefaultClassCodeRenderer(new DefaultCodeRenderer())))
+            ->declareClass($entityDefinition);
     }
 
     /**
@@ -65,7 +67,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
             ))
             ->build();
 
-        (new EvalClassDeclarer(new DefaultClassCodeRenderer()))->declareClass($entityDefinition);
+        (new EvalClassDeclarer(new DefaultClassCodeRenderer(new DefaultCodeRenderer())))
+            ->declareClass($entityDefinition);
     }
 
     /**

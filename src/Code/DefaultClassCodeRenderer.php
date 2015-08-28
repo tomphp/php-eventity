@@ -12,14 +12,14 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
     private $definition;
 
     /**
-     * @var string
+     * @var CodeRenderer
      */
-    private $code;
+    private $codeRenderer;
 
-    /**
-     * @var int
-     */
-    private $indentLevel = 0;
+    public function __construct(CodeRenderer $codeRenderer)
+    {
+        $this->codeRenderer = $codeRenderer;
+    }
 
     /**
      * @return string
@@ -28,14 +28,14 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
     {
         $this->definition = $definition;
 
-        $this->code = '';
+        $this->codeRenderer->reset();
 
         $this->addNamespaceToCode();
         $this->addUsesToCode();
         $this->addClassNameToCode();
         $this->addBodyToCode();
 
-        return $this->code;
+        return $this->codeRenderer->render();
     }
 
     private function addNamespaceToCode()
@@ -44,8 +44,8 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
             return;
         }
 
-        $this->addLine("namespace {$this->definition->getNamespace()};");
-        $this->addNewline();
+        $this->codeRenderer->addLine("namespace {$this->definition->getNamespace()};");
+        $this->codeRenderer->addNewline();
     }
 
     private function addUsesToCode()
@@ -55,19 +55,19 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
         }
 
         foreach ($this->definition->getUses() as $use) {
-            $this->addLine("use $use;");
+            $this->codeRenderer->addLine("use $use;");
         }
 
-        $this->addNewline();
+        $this->codeRenderer->addNewline();
     }
 
     private function addClassNameToCode()
     {
-        $this->code .= "class {$this->definition->getClassName()}";
+        $this->codeRenderer->addInline("class {$this->definition->getClassName()}");
         $this->addParentToDefintion();
         $this->addInterfacesToDefintion();
 
-        $this->addNewline();
+        $this->codeRenderer->addNewline();
     }
 
     private function addParentToDefintion()
@@ -76,9 +76,9 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
             return;
         }
 
-        $this->code .= ' extends ';
+        $this->codeRenderer->addInline(' extends ');
 
-        $this->code .= $this->definition->getParent();
+        $this->codeRenderer->addInline($this->definition->getParent());
     }
 
     private function addInterfacesToDefintion()
@@ -87,73 +87,43 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
             return;
         }
 
-        $this->code .= ' implements ';
+        $this->codeRenderer->addInline(' implements ');
 
-        $this->code .= implode(', ', $this->definition->getInterfaces());
+        $this->codeRenderer->addInline(implode(', ', $this->definition->getInterfaces()));
     }
 
     private function addBodyToCode()
     {
-        $this->addLine('{');
+        $this->codeRenderer->addLine('{');
 
-        $this->indent();
+        $this->codeRenderer->indent();
 
         $this->addFieldsToCode();
         $this->addMethodsToCode();
 
-        $this->outdent();
+        $this->codeRenderer->outdent();
 
-        $this->addLine('}');
+        $this->codeRenderer->addLine('}');
     }
 
     private function addFieldsToCode()
     {
         foreach ($this->definition->getFields() as $field) {
-            $this->addLine("private \${$field->getName()};");
+            $this->codeRenderer->addLine("private \${$field->getName()};");
         }
     }
 
     private function addMethodsToCode()
     {
         foreach ($this->definition->getMethods() as $method) {
-            $this->addLine("public function {$method->getName()}()");
-            $this->addLine('{');
-            $this->indent();
+            $this->codeRenderer->addLine("public function {$method->getName()}()");
+            $this->codeRenderer->addLine('{');
+            $this->codeRenderer->indent();
             foreach (explode("\n", $method->getBody()) as $line) {
-                $this->addLine($line);
+                $this->codeRenderer->addLine($line);
             }
-            $this->outdent();
-            $this->addLine('}');
+            $this->codeRenderer->outdent();
+            $this->codeRenderer->addLine('}');
         }
-    }
-
-    /**
-     * @param string $line
-     */
-    private function addLine($line)
-    {
-        $numSpaces = self::INDENT_SIZE * $this->indentLevel;
-        $indent = str_repeat(' ', $numSpaces);
-
-        $this->code .=  $indent . $line;
-        $this->addNewline();
-    }
-
-    private function indent()
-    {
-        $this->indentLevel++;
-    }
-
-    private function outdent()
-    {
-        $this->indentLevel--;
-    }
-
-    /**
-     * @param int $count
-     */
-    private function addNewline()
-    {
-        $this->code .= PHP_EOL;
     }
 }

@@ -6,6 +6,7 @@ use PHPUnit_Framework_TestCase;
 use Eventity\Code\ClassDefinition;
 use Eventity\Code\EvalClassDeclarer;
 use Eventity\Code\DefaultClassCodeRenderer;
+use Eventity\Code\DefaultCodeRenderer;
 
 class EvalClassDeclarerTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +19,7 @@ class EvalClassDeclarerTest extends PHPUnit_Framework_TestCase
             ->setClassName($className)
             ->build();
 
-        $declarer = new EvalClassDeclarer(new DefaultClassCodeRenderer());
+        $declarer = new EvalClassDeclarer(new DefaultClassCodeRenderer(new DefaultCodeRenderer()));
 
         $declarer->declareClass($definition);
 
