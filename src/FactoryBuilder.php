@@ -7,7 +7,10 @@ use Eventity\Code\ClassDefinition;
 interface FactoryBuilder
 {
     /**
+     * @param string $entityFQCN
+     * @param string $wrapperFQCN
+     *
      * @return ClassDefinition
      */
-    public function build(ClassDefinition $wrapperDefinition);
+    public function build($entityFQCN, $wrapperFQCN);
 }

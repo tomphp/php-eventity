@@ -13,16 +13,17 @@ final class DefaultFactoryBuilder implements FactoryBuilder
     /**
      * @return ClassDefinition
      */
-    public function build(ClassDefinition $wrapperDefinition)
+    public function build($entityFQCN, $wrapperFQCN)
     {
-        $factoryName = self::GENERATED_FACTORY_NAMESPACE . '\\' . $wrapperDefinition->getFQCN();
+        $factoryName = self::GENERATED_FACTORY_NAMESPACE . '\\' . $entityFQCN;
 
         return ClassDefinition::builder()
             ->setClassName($factoryName)
             ->addInterface(EntityFactory::class)
             ->addMethod(MethodDefinition::createPublic(
                 self::DEFAULT_CONSTRUCTOR_METHOD,
-                "return new \\{$wrapperDefinition->getFQCN()}();"
+                "\$entity = new \\$entityFQCN();\n"
+                . "return new \\$wrapperFQCN(\$entity);"
             ))
             ->build();
     }

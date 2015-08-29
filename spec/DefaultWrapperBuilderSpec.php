@@ -22,6 +22,8 @@ final class DefaultWrapperBuilderSpec extends ObjectBehavior
     const TEST_ARG1 = 'arg1';
     const TEST_ARG2 = 'arg2';
 
+    const TEST_GETTER = 'getSomething';
+
     function let(ClassAnalyser $analyser)
     {
         $this->beConstructedWith($analyser);
@@ -36,6 +38,7 @@ final class DefaultWrapperBuilderSpec extends ObjectBehavior
                 ],
                 ''
             ))
+            ->addMethod(MethodDefinition::createPublic(self::TEST_GETTER, ''))
             ->build();
 
         $analyser->analyse(self::ENTITY_FQCN)->willReturn($definition);
@@ -85,20 +88,41 @@ final class DefaultWrapperBuilderSpec extends ObjectBehavior
             ->shouldBeLike(FieldDefinition::createPrivate('entity'));
     }
 
-    function it_adds_a_getNewEvents_method_to_the_class()
+    function it_adds_a_constructor_method_to_the_class()
     {
         $method = $this->build(self::ENTITY_FQCN)->getMethods()[0];
+
+        $method->getName()->shouldBe('__construct');
+    }
+
+    function it_adds_an_entity_argument_to_the_constructor()
+    {
+        $method = $this->build(self::ENTITY_FQCN)->getMethods()[0];
+
+        $method->getArguments()->shouldBeLike([
+            ArgumentDefinition::create('entity'),
+        ]);
+    }
+
+    function it_assigns_to_the_entity_field_in_the_constructor()
+    {
+        $method = $this->build(self::ENTITY_FQCN)->getMethods()[0];
+
+        $method->getBody()->shouldStartWith('$this->entity = $entity;');
+    }
+
+    function it_adds_a_getNewEvents_method_to_the_class()
+    {
+        $method = $this->build(self::ENTITY_FQCN)->getMethods()[1];
 
         $method->getName()->shouldBe('getNewEvents');
     }
 
     function it_makes_getNewEvents_return_the_events()
     {
-        /*
-        $method = $this->build(self::ENTITY_FQCN)->getMethods()[0];
+        $method = $this->build(self::ENTITY_FQCN)->getMethods()[1];
 
         $method->getBody()->shouldReturn('return $this->events;');
-         */
     }
 
     function it_analyses_the_entity_class(ClassAnalyser $analyser)
@@ -133,6 +157,15 @@ final class DefaultWrapperBuilderSpec extends ObjectBehavior
 
         $this->build(self::ENTITY_FQCN)
             ->shouldDefineMethodWithCodeContaining(self::TEST_ACTION, $code);
+    }
+
+    function it_passes_through_calls_on_getters()
+    {
+        $getterCode = 'return $this->entity->' . self::TEST_GETTER . "();";
+
+        $method = $this->build(self::ENTITY_FQCN)->getMethods()[3];
+
+        $method->getBody()->shouldStartWith($getterCode);
     }
 
     function getMatchers()

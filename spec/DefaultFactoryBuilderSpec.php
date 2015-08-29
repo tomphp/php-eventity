@@ -11,19 +11,15 @@ use Eventity\Code\ClassInstantiater;
 
 final class DefaultFactoryBuilderSpec extends ObjectBehavior
 {
-    const ENTITY_NAMESPACE = 'TestNamespace';
-    const ENTITY_NAME      = 'TestEntity';
+    const ENTITY_FQCN  = 'TestNamespace\TestEntity';
+    const WRAPPER_FQCN = 'Generated\Wrapper\TestNamespace\TestEntity';
 
     /** @var ClassDefinition */
     private $factoryDefinition;
 
     function let()
     {
-        $wrapperDefinition = ClassDefinition::builder()
-            ->setClassName(self::ENTITY_NAMESPACE . '\\' . self::ENTITY_NAME)
-            ->build();
-
-        $this->factoryDefinition = $this->build($wrapperDefinition);
+        $this->factoryDefinition = $this->build(self::ENTITY_FQCN, self::WRAPPER_FQCN);
     }
 
     function it_returns_a_class_definition()
@@ -33,7 +29,7 @@ final class DefaultFactoryBuilderSpec extends ObjectBehavior
 
     function it_sets_the_class_name_to_the_entity_name()
     {
-        $this->factoryDefinition->getClassName()->shouldReturn(self::ENTITY_NAME);
+        $this->factoryDefinition->getClassName()->shouldReturn('TestEntity');
     }
 
     function it_sets_namespace_to_the_generated_factory_namespace()
@@ -60,5 +56,16 @@ final class DefaultFactoryBuilderSpec extends ObjectBehavior
             ->getMethods()[0]
             ->getName()
             ->shouldReturn('create');
+    }
+
+    function it_make_the_default_create_method_wrap_an_instance_of_the_entity()
+    {
+        $code = '$entity = new \\' . self::ENTITY_FQCN . "();\n";
+        $code .= 'return new \\' . self::WRAPPER_FQCN . '($entity);';
+
+        $this->factoryDefinition
+            ->getMethods()[0]
+            ->getBody()
+            ->shouldReturn($code);
     }
 }

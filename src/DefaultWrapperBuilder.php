@@ -47,9 +47,15 @@ final class DefaultWrapperBuilder implements WrapperBuilder
             ->addDependency(Event::class)
             ->addField(FieldDefinition::createPrivate('events', Value::emptyArray()))
             ->addField(FieldDefinition::createPrivate('entity'))
+            ->addMethod(MethodDefinition::createPublicWithArgs(
+                '__construct',
+                [ArgumentDefinition::create('entity')],
+                '$this->entity = $entity;' . PHP_EOL
+                . "\$this->events[] = new Event('Create', '{$entityName}');"
+            ))
             ->addMethod(MethodDefinition::createPublic(
                 'getNewEvents',
-                "return [new Event('Create', '{$entityName}')];"
+                'return $this->events;'
             ));
 
         $this->addEntityActions($entityName);
@@ -66,7 +72,10 @@ final class DefaultWrapperBuilder implements WrapperBuilder
         $entityDefinition = $this->analyser->analyse($entityName);
 
         foreach ($entityDefinition->getMethods() as $method) {
-            $body = $this->generatedEventCode($method->getName(), $entityName);
+            $body = '';
+            if (strpos($method->getName(), 'get') !== 0) {
+                $body .= $this->generatedEventCode($method->getName(), $entityName);
+            }
             $body .= $this->callEntityCode($method->getName(), $this->getArgumentNames($method));
 
             $this->builder->addMethod(MethodDefinition::createPublicWithArgs(

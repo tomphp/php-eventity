@@ -74,7 +74,7 @@ final class Eventity
     {
         $wrapper = $this->wrapperBuilder->build($entityName);
 
-        $factory = $this->factoryBuilder->build($wrapper);
+        $factory = $this->factoryBuilder->build($entityName, $wrapper->getFQCN());
 
         if (!array_key_exists($entityName, $this->factories)) {
             $this->declareClassesForEntity($entityName, $wrapper, $factory);
