@@ -16,6 +16,8 @@ use Eventity\Code\FieldDefinition;
 use Eventity\Code\Value;
 use Eventity\Code\ArgumentDefinition;
 use Eventity\Code\DefaultCodeRenderer;
+use Eventity\Test\MockEntityDeclarer;
+use Eventity\Code\ClassDeclarer;
 
 class FeatureContext implements Context, SnippetAcceptingContext
 {
@@ -37,12 +39,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function thereIsAnEntityClassNamed($className)
     {
-        $entityDefinition = ClassDefinition::builder()
+        $this->getMockEntityDeclarer()
             ->setClassName($this->createTestClassName($className))
-            ->build();
-
-        (new EvalClassDeclarer(new DefaultClassCodeRenderer(new DefaultCodeRenderer())))
-            ->declareClass($entityDefinition);
+            ->declareEntityClass();
     }
 
     /**
@@ -50,25 +49,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function thereIsAnEntityClassNamedTestentityWithAMethodCalled($className, $action)
     {
-        $entityDefinition = ClassDefinition::builder()
+        $this->getMockEntityDeclarer()
             ->setClassName($this->createTestClassName($className))
-
-            ->addMethod(MethodDefinition::createPublic(
-                $action,
-                "if (!isset(\$this->calls['$action'])) \$this->calls['$action'] = 0;\n"
-                . "\$this->calls['$action']++;"
-            ))
-
-            ->addField(FieldDefinition::createPrivate('calls', Value::emptyArray()))
-            ->addMethod(MethodDefinition::createPublicWithArgs(
-                'getCalls',
-                [ArgumentDefinition::create('methodName')],
-                'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;'
-            ))
-            ->build();
-
-        (new EvalClassDeclarer(new DefaultClassCodeRenderer(new DefaultCodeRenderer())))
-            ->declareClass($entityDefinition);
+            ->addAction($action)
+            ->declareEntityClass();
     }
 
     /**
@@ -130,5 +114,16 @@ class FeatureContext implements Context, SnippetAcceptingContext
         $scenarioCount = self::$scenarioCount;
 
         return "fixtures\Scenario{$scenarioCount}\\{$className}";
+    }
+
+
+    /**
+     * @return MockEntityDeclarer
+     */
+    private function getMockEntityDeclarer()
+    {
+        return new MockEntityDeclarer(new EvalClassDeclarer(
+            new DefaultClassCodeRenderer(new DefaultCodeRenderer())
+        ));
     }
 }

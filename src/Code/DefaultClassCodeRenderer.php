@@ -4,8 +4,6 @@ namespace Eventity\Code;
 
 final class DefaultClassCodeRenderer implements ClassCodeRenderer
 {
-    const INDENT_SIZE = 4;
-
     /**
      * @var ClassDefinition
      */
