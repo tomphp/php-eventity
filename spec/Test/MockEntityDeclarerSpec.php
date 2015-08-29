@@ -47,13 +47,15 @@ class MockEntityDeclarerSpec extends ObjectBehavior
         }))->shouldHaveBeenCalled();
     }
 
-    function it_adds_a_get_class_method_to_the_class(ClassDeclarer $declarer) {
+    function it_adds_a_get_class_method_to_the_class(ClassDeclarer $declarer)
+    {
         $this->declareEntityClass();
 
         $method = MethodDefinition::createPublicWithArgs(
             'getCalls',
             [ArgumentDefinition::create('methodName')],
-            'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;');
+            'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;'
+        );
 
         $declarer->declareClass(Argument::that(function ($definition) use ($method) {
             return in_array($method, $definition->getMethods());

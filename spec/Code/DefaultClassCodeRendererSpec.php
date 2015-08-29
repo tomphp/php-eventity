@@ -12,7 +12,8 @@ use Eventity\Code\CodeRenderer;
 
 final class DefaultClassCodeRendererSpec extends ObjectBehavior
 {
-    function let(CodeRenderer $codeRenderer) {
+    function let(CodeRenderer $codeRenderer)
+    {
         $this->beConstructedWith($codeRenderer);
     }
 

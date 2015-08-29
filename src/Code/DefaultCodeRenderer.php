@@ -53,8 +53,8 @@ final class DefaultCodeRenderer implements CodeRenderer
      * @param int $count
      */
     public function addNewline()
-   {
-       $this->code .= PHP_EOL;
+    {
+        $this->code .= PHP_EOL;
     }
 
     /**
