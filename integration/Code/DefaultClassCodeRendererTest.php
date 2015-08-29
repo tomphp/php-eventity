@@ -8,6 +8,7 @@ use Eventity\Code\ClassDefinition;
 use Eventity\Code\FieldDefinition;
 use Eventity\Code\MethodDefinition;
 use Eventity\Code\DefaultCodeRenderer;
+use Eventity\Code\ArgumentDefinition;
 
 final class DefaultClassCodeRendererTest extends PHPUnit_Framework_TestCase
 {
@@ -150,6 +151,34 @@ EOF;
 class TestClass
 {
     public function testMethod()
+    {
+        return "the body";
+    }
+}
+
+EOF;
+        $this->assertEquals($expected, $this->renderer->render($definition));
+    }
+
+    /** @test */
+    function it_creates_a_class_with_a_method_with_args()
+    {
+        $argument1 = ArgumentDefinition::create('arg1');
+        $argument2 = ArgumentDefinition::create('arg2');
+
+        $definition = ClassDefinition::builder()
+            ->setClassName('TestClass')
+            ->addMethod(MethodDefinition::createPublicWithArgs(
+                'testMethod',
+                [$argument1, $argument2],
+                'return "the body";'
+            ))
+            ->build();
+
+        $expected = <<<EOF
+class TestClass
+{
+    public function testMethod(\$arg1, \$arg2)
     {
         return "the body";
     }

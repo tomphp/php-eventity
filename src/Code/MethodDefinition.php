@@ -12,6 +12,11 @@ final class MethodDefinition
     private $name;
 
     /**
+     * @var ArgumentDefinition
+     */
+    private $arguments;
+
+    /**
      * @var string
      */
     private $body;
@@ -22,28 +27,32 @@ final class MethodDefinition
      */
     public static function createPublic($name, $body = '')
     {
-        return new self($name, $body);
+        return new self($name, [], $body);
     }
 
     /**
-     * @param string $name
-     * @param string $body
+     * @param string               $name
+     * @param ArgumentDefinition[] $arguments
+     * @param string               $body
      */
     public static function createPublicWithArgs($name, array $arguments, $body = '')
     {
-        return new self($name, $body);
+        return new self($name, $arguments, $body);
     }
 
     /**
      * @param string $name
+     * @param ArgumentDefinition[] $arguments
      * @param string $body
      */
-    public function __construct($name, $body)
+    public function __construct($name, array $arguments, $body)
     {
         Assertion::string($name);
+        Assertion::allIsInstanceOf($arguments, ArgumentDefinition::class);
         Assertion::string($body);
 
         $this->name = $name;
+        $this->arguments = $arguments;
         $this->body = $body;
     }
 
@@ -61,5 +70,13 @@ final class MethodDefinition
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * @return ArgumentDefinition[]
+     */
+    public function getArguments()
+    {
+        return $this->arguments;
     }
 }

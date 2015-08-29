@@ -114,7 +114,9 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
     private function addMethodsToCode()
     {
         foreach ($this->definition->getMethods() as $method) {
-            $this->codeRenderer->addLine("public function {$method->getName()}()");
+            $arguments = $this->formatMethodArguements($method->getArguments());
+
+            $this->codeRenderer->addLine("public function {$method->getName()}($arguments)");
             $this->codeRenderer->addLine('{');
             $this->codeRenderer->indent();
             foreach (explode("\n", $method->getBody()) as $line) {
@@ -123,5 +125,17 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
             $this->codeRenderer->outdent();
             $this->codeRenderer->addLine('}');
         }
+    }
+
+    /**
+     * @param ArgumentDefinition[] $arguments
+     *
+     * @return string
+     */
+    private function formatMethodArguements(array $arguments)
+    {
+        return implode(', ', array_map(function (ArgumentDefinition $argument) {
+            return '$' . $argument->getName();
+        }, $arguments));
     }
 }
