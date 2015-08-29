@@ -88,6 +88,20 @@ final class Builder
     }
 
     /**
+     * @param string $dependencyName
+     *
+     * @return self
+     */
+    public function addDependency($dependencyName)
+    {
+        Assertion::string($dependencyName);
+
+        $this->uses[] = $dependencyName;
+
+        return $this;
+    }
+
+    /**
      * @return self
      */
     public function addField(FieldDefinition $field)

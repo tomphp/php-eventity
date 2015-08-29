@@ -51,7 +51,7 @@ final class BuilderSpec extends ObjectBehavior
 
     function it_provides_a_fluent_interface_for_addInterface()
     {
-        $this->addInterface('addInterface')
+        $this->addInterface('Interface')
             ->shouldReturn($this->getWrappedObject());
     }
 
@@ -73,6 +73,25 @@ final class BuilderSpec extends ObjectBehavior
 
         $this->addInterface('NamespaceA\InterfaceOne');
         $this->addInterface('NamespaceB\InterfaceTwo');
+
+        $this->build()->getUses()->shouldReturn([
+            'NamespaceA\InterfaceOne',
+            'NamespaceB\InterfaceTwo',
+        ]);
+    }
+
+    function it_provides_a_fluent_interface_for_addDependency()
+    {
+        $this->addDependency('Interface')
+            ->shouldReturn($this->getWrappedObject());
+    }
+
+    function it_adds_dependecy_to_uses()
+    {
+        $this->setClassName(self::FQCN);
+
+        $this->addDependency('NamespaceA\InterfaceOne');
+        $this->addDependency('NamespaceB\InterfaceTwo');
 
         $this->build()->getUses()->shouldReturn([
             'NamespaceA\InterfaceOne',

@@ -10,6 +10,7 @@ use Eventity\Code\DefaultClassCodeRenderer;
 use Eventity\Code\EvalClassDeclarer;
 use Eventity\Code\ReflectionClassInstantiater;
 use Eventity\Code\DefaultCodeRenderer;
+use Eventity\Code\ReflectionClassAnalyser;
 
 final class Eventity
 {
@@ -56,7 +57,7 @@ final class Eventity
     {
         if (!self::$instance) {
             self::$instance = new self(
-                new DefaultWrapperBuilder(),
+                new DefaultWrapperBuilder(new ReflectionClassAnalyser()),
                 new DefaultFactoryBuilder(),
                 new EvalClassDeclarer(new DefaultClassCodeRenderer(new DefaultCodeRenderer())),
                 new ReflectionClassInstantiater()
