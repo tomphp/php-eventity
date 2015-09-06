@@ -18,6 +18,7 @@ use Eventity\Code\ArgumentDefinition;
 use Eventity\Code\DefaultCodeRenderer;
 use Eventity\Test\MockEntityDeclarer;
 use Eventity\Code\ClassDeclarer;
+use Eventity\EventEntity;
 
 class FeatureContext implements Context, SnippetAcceptingContext
 {
@@ -25,6 +26,16 @@ class FeatureContext implements Context, SnippetAcceptingContext
      * @var int
      */
     private static $scenarioCount = 0;
+
+    /**
+     * @var EventEntity
+     */
+    private $instance;
+
+    /**
+     * @var Event[]
+     */
+    private $events;
 
     /**
      * @BeforeScenario
@@ -57,6 +68,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     /**
      * @Given I have created an instance of :className with the factory
+     * @Given there is an instance of :className created from the factory
      * @When I create an instance with the factory for :className
      */
     public function iCreateAnInstanceWithTheFactoryFor($className)
@@ -67,11 +79,27 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @Given the stream of events from the instance has been captured
+     */
+    public function theStreamOfEventsFromTheInstanceHasBeenCaptured()
+    {
+        $this->events = $this->instance->getNewEvents();
+    }
+
+    /**
      * @When I call :action on then instance
      */
     public function iCallOnThenInstance($action)
     {
         $this->instance->$action();
+    }
+
+    /**
+     * @When I replay the captured event stream
+     */
+    public function iReplayTheCapturedEventStream()
+    {
+        $this->instance = Eventity::getInstance()->replay($this->events);
     }
 
     /**
@@ -102,6 +130,16 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
         $event = array_pop($events);
         expect($event->getName())->toBe($eventName);
+    }
+
+    /**
+     * @Then an instance of :className should be produced
+     */
+    public function anInstanceOfTestentityShouldBeProduced($className)
+    {
+        expect($this->instance)->toBeAnInstanceOf(
+            $this->createTestClassName($className)
+        );
     }
 
     /**

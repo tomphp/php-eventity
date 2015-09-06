@@ -4,8 +4,15 @@ namespace Eventity;
 
 interface EntityFactory
 {
-    /*
-     * All factories provided a method new, however it's method signature will
-     * vary depending constructor parameters so it cannot be defined here.
+    /**
+     * @return EventEntity
      */
+    public function create();
+
+    /**
+     * @param Events[] $events
+     *
+     * @return EventEntity
+     */
+    public function replay(array $events);
 }

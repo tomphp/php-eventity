@@ -11,43 +11,24 @@ use Eventity\Code\EvalClassDeclarer;
 use Eventity\Code\ReflectionClassInstantiater;
 use Eventity\Code\DefaultCodeRenderer;
 use Eventity\Code\ReflectionClassAnalyser;
+use Assert\Assertion;
 
 final class Eventity
 {
-    /** @var WrapperBuilder */
-    private $wrapperBuilder;
-
-    /** @var FactoryBuilder */
-    private $factoryBuilder;
-
-    /** @var ClassDeclarer */
-    private $classDeclarer;
-
-    /** @var ClassInstantiater */
-    private $classInstantiater;
-
-    /** @var EntityFactory[] */
-    private $factories = [];
-
     /** @var Eventity */
     private static $instance;
 
     /**
-     * @param WrapperBuilder    $wrapperBuilder
-     * @param FactoryBuilder    $factoryBuilder
-     * @param ClassDeclarer     $classDeclarer
-     * @param ClassInstantiater $classInstantiater
+     * @var EntityEnvironmentCreator
      */
-    public function __construct(
-        WrapperBuilder $wrapperBuilder,
-        FactoryBuilder $factoryBuilder,
-        ClassDeclarer $classDeclarer,
-        ClassInstantiater $classInstantiater
-    ) {
-        $this->wrapperBuilder = $wrapperBuilder;
-        $this->factoryBuilder = $factoryBuilder;
-        $this->classDeclarer = $classDeclarer;
-        $this->classInstantiater = $classInstantiater;
+    private $enviromentCreator;
+
+    /**
+     * @param EntityEnvironmentCreator $enviromentCreator
+     */
+    public function __construct(EntityEnvironmentCreator $enviromentCreator)
+    {
+        $this->enviromentCreator = $enviromentCreator;
     }
 
     /**
@@ -56,12 +37,14 @@ final class Eventity
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new self(
+            $enviromentCreator = new EntityEnvironmentCreator(
                 new DefaultWrapperBuilder(new ReflectionClassAnalyser()),
                 new DefaultFactoryBuilder(),
                 new EvalClassDeclarer(new DefaultClassCodeRenderer(new DefaultCodeRenderer())),
                 new ReflectionClassInstantiater()
             );
+
+            self::$instance = new self($enviromentCreator);
         }
 
         return self::$instance;
@@ -72,25 +55,22 @@ final class Eventity
      */
     public function getFactoryFor($entityName)
     {
-        $wrapper = $this->wrapperBuilder->build($entityName);
-
-        $factory = $this->factoryBuilder->build($entityName, $wrapper->getFQCN());
-
-        if (!array_key_exists($entityName, $this->factories)) {
-            $this->declareClassesForEntity($entityName, $wrapper, $factory);
-        }
-
-        return $this->factories[$entityName];
+        return $this->enviromentCreator->declareClassesAndCreateFactory($entityName);
     }
 
-    private function declareClassesForEntity(
-        $entityName,
-        ClassDefinition $wrapper,
-        ClassDefinition $factory
-    ) {
-        $this->classDeclarer->declareClass($wrapper);
-        $this->classDeclarer->declareClass($factory);
+    /**
+     * @param array $events
+     *
+     * @return EventEntity
+     */
+    public function replay(array $events)
+    {
+        Assertion::allIsInstanceOf($events, Event::class);
 
-        $this->factories[$entityName] = $this->classInstantiater->instantiate($factory->getFQCN());
+        $entityName = reset($events)->getEntity();
+
+        $factory = $this->enviromentCreator->declareClassesAndCreateFactory($entityName);
+
+        return $factory->replay($events);
     }
 }

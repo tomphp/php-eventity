@@ -17,7 +17,7 @@
         }
     },
     "require": {
-        "php": ">=5.5",
+        "php": ">=5.6",
         "anahkiasen/underscore-php": "^2.0",
         "beberlei/assert": "^2.4"
     },

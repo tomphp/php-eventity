@@ -189,6 +189,33 @@ EOF;
     }
 
     /** @test */
+    function it_creates_a_class_with_a_method_with_typed_args()
+    {
+        $argument = ArgumentDefinition::createWithType('array', 'argName');
+
+        $definition = ClassDefinition::builder()
+            ->setClassName('TestClass')
+            ->addMethod(MethodDefinition::createPublicWithArgs(
+                'testMethod',
+                [$argument],
+                'return "the body";'
+            ))
+            ->build();
+
+        $expected = <<<EOF
+class TestClass
+{
+    public function testMethod(array \$argName)
+    {
+        return "the body";
+    }
+}
+
+EOF;
+        $this->assertEquals($expected, $this->renderer->render($definition));
+    }
+
+    /** @test */
     function it_indents_multiline_method_bodies()
     {
         $definition = ClassDefinition::builder()

@@ -68,4 +68,21 @@ final class DefaultFactoryBuilderSpec extends ObjectBehavior
             ->getBody()
             ->shouldReturn($code);
     }
+
+    function it_adds_the_replay_method()
+    {
+        $this->factoryDefinition
+            ->getMethods()[1]
+            ->getName()
+            ->shouldReturn('replay');
+    }
+
+    function it_adds_the_events_parameter_to_the_replay_method()
+    {
+        $this->factoryDefinition
+            ->getMethods()[1]
+            ->getArguments()[0]
+            ->getName()
+            ->shouldReturn('events');
+    }
 }

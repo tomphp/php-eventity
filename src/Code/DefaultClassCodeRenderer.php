@@ -135,7 +135,13 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
     private function formatMethodArguements(array $arguments)
     {
         return implode(', ', array_map(function (ArgumentDefinition $argument) {
-            return '$' . $argument->getName();
+            $formatted =  '$' . $argument->getName();
+
+            if ($argument->isTyped()) {
+                $formatted = "{$argument->getType()} $formatted";
+            }
+
+            return $formatted;
         }, $arguments));
     }
 }

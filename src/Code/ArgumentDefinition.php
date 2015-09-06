@@ -12,23 +12,50 @@ final class ArgumentDefinition
     private $name;
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
      * @param string $name
      *
      * @return ArgumentDefinition
      */
     public static function create($name)
     {
-        return new self($name);
+        return new self(null, $name);
     }
 
     /**
-     * @param name $name
+     * @param string $type
+     * @param string $name
+     *
+     * @return ArgumentDefinition
      */
-    public function __construct($name)
+    public static function createWithType($type, $name)
     {
+        return new self($type, $name);
+    }
+
+    /**
+     * @param string $type
+     * @param string $name
+     */
+    private function __construct($type, $name)
+    {
+        Assertion::nullOrString($type);
         Assertion::string($name);
 
+        $this->type = $type;
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -37,5 +64,13 @@ final class ArgumentDefinition
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTyped()
+    {
+        return $this->type !== null;
     }
 }
