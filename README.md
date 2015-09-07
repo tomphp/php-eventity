@@ -1,5 +1,7 @@
 # Eventity
 
+[![Build Status](https://travis-ci.org/eventity/php-eventity.svg)](https://travis-ci.org/eventity/php-eventity)
+
 An experimental library for event sourcing.
 
 ## Example of current functionality
