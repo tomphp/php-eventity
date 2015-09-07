@@ -1,6 +1,8 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Renderer;
+
+use Eventity\Code\Definition\ClassDefinition;
 
 interface ClassCodeRenderer
 {

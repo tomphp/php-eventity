@@ -6,9 +6,9 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Eventity\WrapperBuilder;
 use Eventity\FactoryBuilder;
-use Eventity\Code\ClassDeclarer;
-use Eventity\Code\ClassInstantiater;
-use Eventity\Code\ClassDefinition;
+use Eventity\Code\Declarer\ClassDeclarer;
+use Eventity\Code\Instantiater\ClassInstantiater;
+use Eventity\Code\Definition\ClassDefinition;
 
 final class EntityEnvironmentCreatorSpec extends ObjectBehavior
 {
@@ -22,7 +22,7 @@ final class EntityEnvironmentCreatorSpec extends ObjectBehavior
     private $wrapper;
 
     /**
-     * @var ClassDefinition
+     * @var \Eventity\Code\Definition\ClassDefinition
      */
     private $factory;
 

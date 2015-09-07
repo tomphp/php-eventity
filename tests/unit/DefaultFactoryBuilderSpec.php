@@ -5,9 +5,9 @@ namespace unit\Eventity;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Eventity\EntityFactory;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\ClassDeclarer;
-use Eventity\Code\ClassInstantiater;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Declarer\ClassDeclarer;
+use Eventity\Code\Instantiater\ClassInstantiater;
 
 final class DefaultFactoryBuilderSpec extends ObjectBehavior
 {

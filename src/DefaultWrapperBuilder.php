@@ -2,21 +2,19 @@
 
 namespace Eventity;
 
-use Eventity\Code\MethodDefinition;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\ClassDefinition\Builder;
-use Eventity\Code\ClassAnalyser;
+use Eventity\Code\Definition\MethodDefinition;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Analyser\ClassAnalyser;
 use Eventity\Code\Definition\ParameterDefinition;
-use Eventity\Event;
-use Eventity\Code\Value;
-use Eventity\Code\FieldDefinition;
+use Eventity\Code\Definition\Value;
+use Eventity\Code\Definition\FieldDefinition;
 
 final class DefaultWrapperBuilder implements WrapperBuilder
 {
     const GENERATED_ENTITY_NAMESPACE = 'Eventity\\Generated\\Entity';
 
     /**
-     * @var Builder
+     * @var \Eventity\Code\Definition\ClassDefinition\Builder
      */
     private $builder;
 
@@ -26,7 +24,7 @@ final class DefaultWrapperBuilder implements WrapperBuilder
     private $analyser;
 
     /**
-     * @param ClassAnalyser $analyser
+     * @param \Eventity\Code\Analyser\ClassAnalyser $analyser
      */
     public function __construct(ClassAnalyser $analyser)
     {

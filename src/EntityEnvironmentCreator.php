@@ -2,15 +2,9 @@
 
 namespace Eventity;
 
-use Eventity\Code\ClassCodeRenderer;
-use Eventity\Code\ClassDeclarer;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\ClassInstantiater;
-use Eventity\Code\DefaultClassCodeRenderer;
-use Eventity\Code\EvalClassDeclarer;
-use Eventity\Code\ReflectionClassInstantiater;
-use Eventity\Code\DefaultCodeRenderer;
-use Eventity\Code\ReflectionClassAnalyser;
+use Eventity\Code\Declarer\ClassDeclarer;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Instantiater\ClassInstantiater;
 
 /** @final */
 class EntityEnvironmentCreator
@@ -21,10 +15,10 @@ class EntityEnvironmentCreator
     /** @var FactoryBuilder */
     private $factoryBuilder;
 
-    /** @var ClassDeclarer */
+    /** @var \Eventity\Code\Declarer\ClassDeclarer */
     private $classDeclarer;
 
-    /** @var ClassInstantiater */
+    /** @var \Eventity\Code\Instantiater\ClassInstantiater */
     private $classInstantiater;
 
     /** @var EntityFactory[] */

@@ -2,7 +2,7 @@
 
 namespace Eventity;
 
-use Eventity\Code\ClassDefinition;
+use Eventity\Code\Definition\ClassDefinition;
 
 interface FactoryBuilder
 {
@@ -10,7 +10,7 @@ interface FactoryBuilder
      * @param string $entityFQCN
      * @param string $wrapperFQCN
      *
-     * @return ClassDefinition
+     * @return \Eventity\Code\Definition\ClassDefinition
      */
     public function build($entityFQCN, $wrapperFQCN);
 }

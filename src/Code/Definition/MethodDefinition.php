@@ -1,9 +1,8 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Definition;
 
 use Assert\Assertion;
-use Eventity\Code\Definition\ParameterDefinition;
 
 final class MethodDefinition
 {

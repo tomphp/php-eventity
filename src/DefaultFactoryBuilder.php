@@ -2,8 +2,8 @@
 
 namespace Eventity;
 
-use Eventity\Code\MethodDefinition;
-use Eventity\Code\ClassDefinition;
+use Eventity\Code\Definition\MethodDefinition;
+use Eventity\Code\Definition\ClassDefinition;
 use Eventity\Code\Definition\ParameterDefinition;
 
 final class DefaultFactoryBuilder implements FactoryBuilder

@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Eventity\Code;
+namespace unit\Eventity\Code\Definition;
 
 use PhpSpec\ObjectBehavior;
 

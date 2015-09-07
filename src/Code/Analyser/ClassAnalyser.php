@@ -1,15 +1,15 @@
 <?php
 
-namespace Eventity;
+namespace Eventity\Code\Analyser;
 
 use Eventity\Code\Definition\ClassDefinition;
 
-interface WrapperBuilder
+interface ClassAnalyser
 {
     /**
-     * @param string $entityName
+     * @param string $className
      *
      * @return \Eventity\Code\Definition\ClassDefinition
      */
-    public function build($entityName);
+    public function analyse($className);
 }

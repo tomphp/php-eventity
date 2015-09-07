@@ -1,13 +1,13 @@
 <?php
 
-namespace unit\Eventity\Code\ClassDefinition;
+namespace unit\Eventity\Code\Definition\ClassDefinition;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\MethodDefinition;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Definition\MethodDefinition;
 use Eventity\Exception\BuilderIncompleteException;
-use Eventity\Code\FieldDefinition;
+use Eventity\Code\Definition\FieldDefinition;
 
 final class BuilderSpec extends ObjectBehavior
 {

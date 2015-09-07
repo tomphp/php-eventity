@@ -1,12 +1,12 @@
 <?php
 
-namespace integration\Eventity\Code;
+namespace integration\Eventity\Code\Declarer;
 
 use PHPUnit_Framework_TestCase;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\EvalClassDeclarer;
-use Eventity\Code\DefaultClassCodeRenderer;
-use Eventity\Code\DefaultCodeRenderer;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Declarer\EvalClassDeclarer;
+use Eventity\Code\Renderer\DefaultClassCodeRenderer;
+use Eventity\Code\Renderer\DefaultCodeRenderer;
 
 class EvalClassDeclarerTest extends PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class EvalClassDeclarerTest extends PHPUnit_Framework_TestCase
     {
         $className = 'integration\generated\GeneratedClass';
 
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName($className)
             ->build();
 

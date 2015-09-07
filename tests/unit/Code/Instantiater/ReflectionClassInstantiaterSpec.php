@@ -1,8 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: tomoram
+ * Date: 07/09/15
+ * Time: 21:15
+ */
+namespace unit\Eventity\Code\Instantiater;
 
-namespace unit\Eventity\Code;
-
-use Eventity\Code\ReflectionClassInstantiater;
 use PhpSpec\ObjectBehavior;
 
 final class ReflectionClassInstantiaterSpec extends ObjectBehavior

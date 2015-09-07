@@ -1,19 +1,20 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: tomoram
+ * Date: 07/09/15
+ * Time: 21:16
+ */
+namespace unit\Eventity\Code\Analyser;
 
-namespace unit\Eventity\Code;
-
+use Eventity\Code\Definition\ClassDefinition;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-use Eventity\Code\ClassAnalyser;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\MethodDefinition;
-use Eventity\Code\Definition\ParameterDefinition;
 
 class ReflectionClassAnalyserSpec extends ObjectBehavior
 {
     function it_is_a_class_analyser()
     {
-        $this->shouldBeAnInstanceOf(ClassAnalyser::class);
+        $this->shouldBeAnInstanceOf(\Eventity\Code\Analyser\ClassAnalyser::class);
     }
 
     function it_returns_a_class_definition()

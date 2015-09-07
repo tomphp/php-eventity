@@ -1,9 +1,10 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Analyser;
 
+use Eventity\Code\Definition;
+use Eventity\Code\Definition\ClassDefinition;
 use Eventity\Code\Definition\ParameterDefinition;
-use Eventity\Code\MethodDefinition;
 use ReflectionClass;
 
 class ReflectionClassAnalyser implements ClassAnalyser
@@ -23,7 +24,7 @@ class ReflectionClassAnalyser implements ClassAnalyser
                 $method->getParameters()
             );
 
-            $builder->addMethod(MethodDefinition::createPublicWithParams(
+            $builder->addMethod(Definition\MethodDefinition::createPublicWithParams(
                 $method->getName(),
                 $parameters,
                 ''

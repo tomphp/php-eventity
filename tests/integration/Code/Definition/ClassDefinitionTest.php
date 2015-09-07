@@ -1,10 +1,10 @@
 <?php
 
-namespace integration\Eventity\Code;
+namespace integration\Eventity\Code\Definition;
 
 use PHPUnit_Framework_TestCase;
-use Eventity\Code\ClassDefinition\Builder;
-use Eventity\Code\ClassDefinition;
+use Eventity\Code\Definition\ClassDefinition\Builder;
+use Eventity\Code\Definition\ClassDefinition;
 
 final class ClassDefinitionTest extends PHPUnit_Framework_TestCase
 {

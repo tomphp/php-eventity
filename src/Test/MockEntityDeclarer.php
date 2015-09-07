@@ -2,12 +2,12 @@
 
 namespace Eventity\Test;
 
-use Eventity\Code\ClassDeclarer;
-use Eventity\Code\ClassDefinition\Builder;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\FieldDefinition;
-use Eventity\Code\Value;
-use Eventity\Code\MethodDefinition;
+use Eventity\Code\Declarer\ClassDeclarer;
+use Eventity\Code\Definition\ClassDefinition\Builder;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Definition\FieldDefinition;
+use Eventity\Code\Definition\Value;
+use Eventity\Code\Definition\MethodDefinition;
 use Eventity\Code\Definition\ParameterDefinition;
 
 final class MockEntityDeclarer
@@ -18,7 +18,7 @@ final class MockEntityDeclarer
     private $declarer;
 
     /**
-     * @var Builder
+     * @var \Eventity\Code\Definition\ClassDefinition\Builder
      */
     private $builder;
 

@@ -5,19 +5,13 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Eventity\Code\EvalClassDeclarer;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\DefaultClassCodeRenderer;
-use Eventity\Code\MethodDefinition;
+use Eventity\Code\Declarer\EvalClassDeclarer;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Renderer\DefaultClassCodeRenderer;
 use Eventity\Event;
 use Eventity\Eventity;
-use Eventity\FactoryBuilder;
-use Eventity\Code\FieldDefinition;
-use Eventity\Code\Value;
-use Eventity\Code\Definition\ParameterDefinition;
-use Eventity\Code\DefaultCodeRenderer;
+use Eventity\Code\Renderer\DefaultCodeRenderer;
 use Eventity\Test\MockEntityDeclarer;
-use Eventity\Code\ClassDeclarer;
 use Eventity\EventEntity;
 
 class FeatureContext implements Context, SnippetAcceptingContext

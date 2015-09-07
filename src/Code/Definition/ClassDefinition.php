@@ -1,8 +1,8 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Definition;
 
-use Eventity\Code\ClassDefinition\Builder;
+use Eventity\Code\Definition\ClassDefinition\Builder;
 
 final class ClassDefinition
 {
@@ -42,7 +42,7 @@ final class ClassDefinition
     private $methods = [];
 
     /**
-     * @return Builder
+     * @return \Eventity\Code\Definition\ClassDefinition\Builder
      */
     public static function builder()
     {

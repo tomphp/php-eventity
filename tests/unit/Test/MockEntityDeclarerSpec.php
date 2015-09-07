@@ -4,12 +4,12 @@ namespace unit\Eventity\Test;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Eventity\Code\ClassDeclarer;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\FieldDefinition;
-use Eventity\Code\Value;
+use Eventity\Code\Declarer\ClassDeclarer;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Definition\FieldDefinition;
+use Eventity\Code\Definition\Value;
 use Eventity\Code\Definition\ParameterDefinition;
-use Eventity\Code\MethodDefinition;
+use Eventity\Code\Definition\MethodDefinition;
 
 class MockEntityDeclarerSpec extends ObjectBehavior
 {

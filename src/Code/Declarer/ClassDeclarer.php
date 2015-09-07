@@ -1,6 +1,8 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Declarer;
+
+use Eventity\Code\Definition\ClassDefinition;
 
 interface ClassDeclarer
 {

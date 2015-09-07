@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Definition;
 
 final class Value
 {
@@ -9,6 +9,5 @@ final class Value
      */
     public static function emptyArray()
     {
-
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace integration\Eventity\Code;
+namespace integration\Eventity\Code\Renderer;
 
 use PHPUnit_Framework_TestCase;
-use Eventity\Code\DefaultClassCodeRenderer;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\FieldDefinition;
-use Eventity\Code\MethodDefinition;
-use Eventity\Code\DefaultCodeRenderer;
+use Eventity\Code\Renderer\DefaultClassCodeRenderer;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Definition\FieldDefinition;
+use Eventity\Code\Definition\MethodDefinition;
+use Eventity\Code\Renderer\DefaultCodeRenderer;
 use Eventity\Code\Definition\ParameterDefinition;
 
 final class DefaultClassCodeRendererTest extends PHPUnit_Framework_TestCase
@@ -25,7 +25,7 @@ final class DefaultClassCodeRendererTest extends PHPUnit_Framework_TestCase
     /** @test */
     function it_is_creates_an_empty_class()
     {
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
             ->build();
 
@@ -42,7 +42,7 @@ EOF;
     /** @test */
     public function it_creates_class_with_a_namespace()
     {
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('Test\Namespace\NSClass')
             ->build();
 
@@ -61,7 +61,7 @@ EOF;
     /** @test */
     function it_creates_a_class_which_extends_a_namespaced_parent()
     {
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
             ->setParent('Test\Namespace\Parent')
             ->build();
@@ -81,7 +81,7 @@ EOF;
     /** @test */
     function it_creates_a_class_which_implements_interfaces()
     {
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
             ->addInterface('InterfaceOne')
             ->addInterface('InterfaceTwo')
@@ -100,7 +100,7 @@ EOF;
     /** @test */
     function it_creates_a_class_which_implements_a_namespaced_interface()
     {
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
             ->addInterface('Test\Namespace\TestInterface')
             ->build();
@@ -120,7 +120,7 @@ EOF;
     /** @test */
     function it_creates_a_class_with_a_private_field()
     {
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
             ->addField(FieldDefinition::createPrivate('testField'))
             ->build();
@@ -139,9 +139,9 @@ EOF;
     /** @test */
     function it_creates_a_class_with_a_public_method()
     {
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
-            ->addMethod(MethodDefinition::createPublic(
+            ->addMethod(\Eventity\Code\Definition\MethodDefinition::createPublic(
                 'testMethod',
                 'return "the body";'
             ))
@@ -166,9 +166,9 @@ EOF;
         $param1 = ParameterDefinition::create('param1');
         $param2 = ParameterDefinition::create('param2');
 
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
-            ->addMethod(MethodDefinition::createPublicWithParams(
+            ->addMethod(\Eventity\Code\Definition\MethodDefinition::createPublicWithParams(
                 'testMethod',
                 [$param1, $param2],
                 'return "the body";'
@@ -193,7 +193,7 @@ EOF;
     {
         $parameter = ParameterDefinition::createWithType('array', 'paramName');
 
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
             ->addMethod(MethodDefinition::createPublicWithParams(
                 'testMethod',
@@ -218,7 +218,7 @@ EOF;
     /** @test */
     function it_indents_multiline_method_bodies()
     {
-        $definition = ClassDefinition::builder()
+        $definition = \Eventity\Code\Definition\ClassDefinition::builder()
             ->setClassName('TestClass')
             ->addMethod(MethodDefinition::createPublic(
                 'testMethod',

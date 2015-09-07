@@ -4,13 +4,13 @@ namespace unit\Eventity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Eventity\Code\ClassDefinition;
+use Eventity\Code\Definition\ClassDefinition;
 use Eventity\EventEntity;
-use Eventity\Code\MethodDefinition;
-use Eventity\Code\ClassAnalyser;
+use Eventity\Code\Definition\MethodDefinition;
+use Eventity\Code\Analyser\ClassAnalyser;
 use Eventity\Code\Definition\ParameterDefinition;
-use Eventity\Code\FieldDefinition;
-use Eventity\Code\Value;
+use Eventity\Code\Definition\FieldDefinition;
+use Eventity\Code\Definition\Value;
 
 final class DefaultWrapperBuilderSpec extends ObjectBehavior
 {

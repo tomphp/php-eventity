@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Eventity\Code;
+namespace unit\Eventity\Code\Renderer;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

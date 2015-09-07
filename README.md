@@ -47,3 +47,25 @@ array(2) {
 }
 */
 ```
+
+## API
+
+Some notes for developers:
+
+### Eventity\Code
+
+A short explanation of the `Eventity\Code` namespace:
+
+* `Eventity\Code\Analyser` - takes a class name and produces an instance of
+  `Eventity\Code\Definition\ClassDefinition` which describes the class.
+
+* `Eventity\Code\Definition` - value objects which describe a class.
+
+* `Eventity\Code\Renderer` - takes an `Eventity\Code\Definition\ClassDefinition`
+  and creates the PHP code for the described class as a `string`.
+
+* `Eventity\Code\Declarer` - takes an `Eventity\Code\Definition\ClassDefinition`
+  and declares the class it describes (by using a renderer and eval).
+
+* `Eventity\Code\Instantiater` - takes a class name and returns an instance of
+  the class.

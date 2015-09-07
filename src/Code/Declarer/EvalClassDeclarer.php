@@ -1,6 +1,9 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Declarer;
+
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Renderer\ClassCodeRenderer;
 
 final class EvalClassDeclarer implements ClassDeclarer
 {

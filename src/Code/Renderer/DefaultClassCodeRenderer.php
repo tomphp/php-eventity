@@ -1,7 +1,8 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Renderer;
 
+use Eventity\Code\Definition\ClassDefinition;
 use Eventity\Code\Definition\ParameterDefinition;
 
 final class DefaultClassCodeRenderer implements ClassCodeRenderer

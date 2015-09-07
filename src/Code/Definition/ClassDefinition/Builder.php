@@ -1,12 +1,12 @@
 <?php
 
-namespace Eventity\Code\ClassDefinition;
+namespace Eventity\Code\Definition\ClassDefinition;
 
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\MethodDefinition;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Definition\MethodDefinition;
 use Eventity\Exception\BuilderIncompleteException;
 use Assert\Assertion;
-use Eventity\Code\FieldDefinition;
+use Eventity\Code\Definition\FieldDefinition;
 
 final class Builder
 {
@@ -41,7 +41,7 @@ final class Builder
     private $fields = [];
 
     /**
-     * @var MethodDefinition[]
+     * @var \Eventity\Code\Definition\MethodDefinition[]
      */
     private $methods = [];
 

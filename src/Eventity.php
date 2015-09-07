@@ -2,15 +2,12 @@
 
 namespace Eventity;
 
-use Eventity\Code\ClassCodeRenderer;
-use Eventity\Code\ClassDeclarer;
-use Eventity\Code\ClassDefinition;
-use Eventity\Code\ClassInstantiater;
-use Eventity\Code\DefaultClassCodeRenderer;
-use Eventity\Code\EvalClassDeclarer;
-use Eventity\Code\ReflectionClassInstantiater;
-use Eventity\Code\DefaultCodeRenderer;
-use Eventity\Code\ReflectionClassAnalyser;
+use Eventity\Code\Definition\ClassDefinition;
+use Eventity\Code\Renderer\DefaultClassCodeRenderer;
+use Eventity\Code\Declarer\EvalClassDeclarer;
+use Eventity\Code\Instantiater\ReflectionClassInstantiater;
+use Eventity\Code\Renderer\DefaultCodeRenderer;
+use Eventity\Code\Analyser\ReflectionClassAnalyser;
 use Assert\Assertion;
 
 final class Eventity
