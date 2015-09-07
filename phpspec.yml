@@ -3,4 +3,5 @@ suites:
   default:
     namespace: Eventity
     psr4_prefix: Eventity
+    spec_prefix: unit
     spec_path: tests

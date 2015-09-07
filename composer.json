@@ -31,7 +31,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "spec\\Eventity\\": "tests/spec/",
+            "unit\\Eventity\\": "tests/unit/",
             "integration\\Eventity\\": "tests/integration/"
         }
     },
@@ -39,7 +39,7 @@
         "test": [
             "vendor/bin/phpcs --standard=psr2 src",
             "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-contexts.xml tests/acceptance/bootstrap",
-            "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-tests.xml tests/spec tests/integration",
+            "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-tests.xml tests/unit tests/integration",
             "vendor/bin/phpspec --ansi run",
             "vendor/bin/phpunit --testdox",
             "vendor/bin/behat --colors"
