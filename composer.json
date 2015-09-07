@@ -31,15 +31,15 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "spec\\Eventity\\": "spec/",
-            "integration\\Eventity\\": "integration/"
+            "spec\\Eventity\\": "tests/spec/",
+            "integration\\Eventity\\": "tests/integration/"
         }
     },
     "scripts": {
         "test": [
             "vendor/bin/phpcs --standard=psr2 src",
-            "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-contexts.xml features/bootstrap",
-            "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-tests.xml spec integration",
+            "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-contexts.xml tests/acceptance/bootstrap",
+            "vendor/bin/phpcs --standard=vendor/tomphp/php-standards/ruleset-for-tests.xml tests/spec tests/integration",
             "vendor/bin/phpspec --ansi run",
             "vendor/bin/phpunit --testdox",
             "vendor/bin/behat --colors"

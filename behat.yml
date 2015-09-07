@@ -1,0 +1,5 @@
+default:
+  autoload: %paths.base%/tests/acceptance/bootstrap
+  suites:
+    core:
+      paths: [ %paths.base%/tests/acceptance ]

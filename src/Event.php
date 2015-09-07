@@ -14,6 +14,10 @@ final class Event
      */
     private $entity;
 
+    /**
+     * @param string $name
+     * @param string $entity
+     */
     public function __construct($name, $entity)
     {
         $this->name = $name;

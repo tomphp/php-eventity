@@ -1,5 +1,6 @@
 formatter.name: pretty
 suites:
-    default:
-        namespace: Eventity
-        psr4_prefix: Eventity
+  default:
+    namespace: Eventity
+    psr4_prefix: Eventity
+    spec_path: tests

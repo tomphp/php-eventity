@@ -60,7 +60,6 @@ final class DefaultWrapperBuilder implements WrapperBuilder
 
         $this->addEntityActions($entityName);
 
-
         return $this->builder->build();
     }
 
