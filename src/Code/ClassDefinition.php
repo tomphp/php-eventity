@@ -46,7 +46,7 @@ final class ClassDefinition
      */
     public static function builder()
     {
-        return new Builder($name);
+        return new Builder();
     }
 
     /**
