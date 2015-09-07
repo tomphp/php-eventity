@@ -1,10 +1,10 @@
 <?php
 
-namespace Eventity\Code;
+namespace Eventity\Code\Definition;
 
 use Assert\Assertion;
 
-final class ArgumentDefinition
+final class ParameterDefinition
 {
     /**
      * @var string
@@ -19,7 +19,7 @@ final class ArgumentDefinition
     /**
      * @param string $name
      *
-     * @return ArgumentDefinition
+     * @return ParameterDefinition
      */
     public static function create($name)
     {
@@ -30,7 +30,7 @@ final class ArgumentDefinition
      * @param string $type
      * @param string $name
      *
-     * @return ArgumentDefinition
+     * @return ParameterDefinition
      */
     public static function createWithType($type, $name)
     {

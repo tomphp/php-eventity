@@ -8,7 +8,7 @@ use Eventity\Code\ClassDefinition;
 use Eventity\Code\FieldDefinition;
 use Eventity\Code\MethodDefinition;
 use Eventity\Code\DefaultCodeRenderer;
-use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\Definition\ParameterDefinition;
 
 final class DefaultClassCodeRendererTest extends PHPUnit_Framework_TestCase
 {
@@ -161,16 +161,16 @@ EOF;
     }
 
     /** @test */
-    function it_creates_a_class_with_a_method_with_args()
+    function it_creates_a_class_with_a_method_with_parameters()
     {
-        $argument1 = ArgumentDefinition::create('arg1');
-        $argument2 = ArgumentDefinition::create('arg2');
+        $param1 = ParameterDefinition::create('param1');
+        $param2 = ParameterDefinition::create('param2');
 
         $definition = ClassDefinition::builder()
             ->setClassName('TestClass')
-            ->addMethod(MethodDefinition::createPublicWithArgs(
+            ->addMethod(MethodDefinition::createPublicWithParams(
                 'testMethod',
-                [$argument1, $argument2],
+                [$param1, $param2],
                 'return "the body";'
             ))
             ->build();
@@ -178,7 +178,7 @@ EOF;
         $expected = <<<EOF
 class TestClass
 {
-    public function testMethod(\$arg1, \$arg2)
+    public function testMethod(\$param1, \$param2)
     {
         return "the body";
     }
@@ -189,15 +189,15 @@ EOF;
     }
 
     /** @test */
-    function it_creates_a_class_with_a_method_with_typed_args()
+    function it_creates_a_class_with_a_method_with_typed_parameters()
     {
-        $argument = ArgumentDefinition::createWithType('array', 'argName');
+        $parameter = ParameterDefinition::createWithType('array', 'paramName');
 
         $definition = ClassDefinition::builder()
             ->setClassName('TestClass')
-            ->addMethod(MethodDefinition::createPublicWithArgs(
+            ->addMethod(MethodDefinition::createPublicWithParams(
                 'testMethod',
-                [$argument],
+                [$parameter],
                 'return "the body";'
             ))
             ->build();
@@ -205,7 +205,7 @@ EOF;
         $expected = <<<EOF
 class TestClass
 {
-    public function testMethod(array \$argName)
+    public function testMethod(array \$paramName)
     {
         return "the body";
     }

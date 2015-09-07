@@ -1,11 +1,11 @@
 <?php
 
-namespace unit\Eventity\Code;
+namespace unit\Eventity\Code\Definition;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-final class ArgumentDefinitionSpec extends ObjectBehavior
+final class ParameterDefinitionSpec extends ObjectBehavior
 {
     public function it_is_not_typed_if_no_type_is_specfied()
     {

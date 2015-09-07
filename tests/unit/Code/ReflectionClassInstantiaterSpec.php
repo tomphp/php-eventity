@@ -13,13 +13,13 @@ final class ReflectionClassInstantiaterSpec extends ObjectBehavior
             ->shouldReturnAnInstanceOf(ReflectionClassInstantiater_SpecTestClass::class);
     }
 
-    function it_creates_a_class_with_constructor_arguments()
+    function it_creates_a_class_with_constructor_parameters()
     {
-        $args = [1, 'two', 3.0, false];
+        $params = [1, 'two', 3.0, false];
 
-        $instance = $this->instantiate(ReflectionClassInstantiater_SpecTestClass::class, $args);
+        $instance = $this->instantiate(ReflectionClassInstantiater_SpecTestClass::class, $params);
 
-        $instance->getConstructorArgs()->shouldBeLike($args);
+        $instance->getConstructorParams()->shouldBeLike($params);
     }
 }
 
@@ -28,18 +28,18 @@ final class ReflectionClassInstantiater_SpecTestClass
     /**
      * @var mixed[]
      */
-    private $constructorArgs;
+    private $constructorParams;
 
     public function __construct()
     {
-        $this->constructorArgs = func_get_args();
+        $this->constructorParams = func_get_args();
     }
 
     /**
      * @return mixed[]
      */
-    public function getConstructorArgs()
+    public function getConstructorParams()
     {
-        return $this->constructorArgs;
+        return $this->constructorParams;
     }
 }

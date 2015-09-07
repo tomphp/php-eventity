@@ -2,6 +2,8 @@
 
 namespace Eventity\Code;
 
+use Eventity\Code\Definition\ParameterDefinition;
+
 final class DefaultClassCodeRenderer implements ClassCodeRenderer
 {
     /**
@@ -114,9 +116,9 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
     private function addMethodsToCode()
     {
         foreach ($this->definition->getMethods() as $method) {
-            $arguments = $this->formatMethodArguements($method->getArguments());
+            $parameters = $this->formatMethodParameters($method->getArguments());
 
-            $this->codeRenderer->addLine("public function {$method->getName()}($arguments)");
+            $this->codeRenderer->addLine("public function {$method->getName()}($parameters)");
             $this->codeRenderer->addLine('{');
             $this->codeRenderer->indent();
             foreach (explode("\n", $method->getBody()) as $line) {
@@ -128,20 +130,20 @@ final class DefaultClassCodeRenderer implements ClassCodeRenderer
     }
 
     /**
-     * @param ArgumentDefinition[] $arguments
+     * @param ParameterDefinition[] $parameters
      *
      * @return string
      */
-    private function formatMethodArguements(array $arguments)
+    private function formatMethodParameters(array $parameters)
     {
-        return implode(', ', array_map(function (ArgumentDefinition $argument) {
-            $formatted =  '$' . $argument->getName();
+        return implode(', ', array_map(function (ParameterDefinition $parameter) {
+            $formatted =  '$' . $parameter->getName();
 
-            if ($argument->isTyped()) {
-                $formatted = "{$argument->getType()} $formatted";
+            if ($parameter->isTyped()) {
+                $formatted = "{$parameter->getType()} $formatted";
             }
 
             return $formatted;
-        }, $arguments));
+        }, $parameters));
     }
 }

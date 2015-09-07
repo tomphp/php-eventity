@@ -8,7 +8,7 @@ use Eventity\Code\ClassDeclarer;
 use Eventity\Code\ClassDefinition;
 use Eventity\Code\FieldDefinition;
 use Eventity\Code\Value;
-use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\Definition\ParameterDefinition;
 use Eventity\Code\MethodDefinition;
 
 class MockEntityDeclarerSpec extends ObjectBehavior
@@ -51,9 +51,9 @@ class MockEntityDeclarerSpec extends ObjectBehavior
     {
         $this->declareEntityClass();
 
-        $method = MethodDefinition::createPublicWithArgs(
+        $method = MethodDefinition::createPublicWithParams(
             'getCalls',
-            [ArgumentDefinition::create('methodName')],
+            [ParameterDefinition::create('methodName')],
             'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;'
         );
 

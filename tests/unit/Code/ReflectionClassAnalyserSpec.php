@@ -7,7 +7,7 @@ use Prophecy\Argument;
 use Eventity\Code\ClassAnalyser;
 use Eventity\Code\ClassDefinition;
 use Eventity\Code\MethodDefinition;
-use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\Definition\ParameterDefinition;
 
 class ReflectionClassAnalyserSpec extends ObjectBehavior
 {
@@ -37,13 +37,13 @@ class ReflectionClassAnalyserSpec extends ObjectBehavior
         $method->getName()->shouldReturn('publicFn');
     }
 
-    function it_adds_arguments_for_methods()
+    function it_adds_parameters_for_methods()
     {
         $method = $this->analyse(ReflectionClassAnalyserSpec_TestClass::class)
             ->getMethods()[1];
 
-        $method->getArguments()[0]->getName()->shouldReturn('arg1');
-        $method->getArguments()[1]->getName()->shouldReturn('arg2');
+        $method->getArguments()[0]->getName()->shouldReturn('param1');
+        $method->getArguments()[1]->getName()->shouldReturn('param2');
     }
 }
 
@@ -53,7 +53,7 @@ class ReflectionClassAnalyserSpec_TestClass
     {
     }
 
-    public function publicFnWithArgs($arg1, $arg2)
+    public function publicFnWithParams($param1, $param2)
     {
     }
 }

@@ -14,7 +14,7 @@ use Eventity\Eventity;
 use Eventity\FactoryBuilder;
 use Eventity\Code\FieldDefinition;
 use Eventity\Code\Value;
-use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\Definition\ParameterDefinition;
 use Eventity\Code\DefaultCodeRenderer;
 use Eventity\Test\MockEntityDeclarer;
 use Eventity\Code\ClassDeclarer;
@@ -114,9 +114,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then the method :arg1 should be called on the wrapped instance
+     * @Then the method :methodName should be called on the wrapped instance
      */
-    public function theMethodShouldBeCalledOnTheWrappedInstance($arg1)
+    public function theMethodShouldBeCalledOnTheWrappedInstance($methodName)
     {
         expect($this->instance->getCalls('testAction'))->toBe(1);
     }

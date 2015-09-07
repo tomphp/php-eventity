@@ -3,6 +3,7 @@
 namespace Eventity\Code;
 
 use Assert\Assertion;
+use Eventity\Code\Definition\ParameterDefinition;
 
 final class MethodDefinition
 {
@@ -12,9 +13,9 @@ final class MethodDefinition
     private $name;
 
     /**
-     * @var ArgumentDefinition
+     * @var ParameterDefinition
      */
-    private $arguments;
+    private $parameters;
 
     /**
      * @var string
@@ -31,28 +32,28 @@ final class MethodDefinition
     }
 
     /**
-     * @param string               $name
-     * @param ArgumentDefinition[] $arguments
-     * @param string               $body
+     * @param string                $name
+     * @param ParameterDefinition[] $parameters
+     * @param string                $body
      */
-    public static function createPublicWithArgs($name, array $arguments, $body = '')
+    public static function createPublicWithParams($name, array $parameters, $body = '')
     {
-        return new self($name, $arguments, $body);
+        return new self($name, $parameters, $body);
     }
 
     /**
      * @param string $name
-     * @param ArgumentDefinition[] $arguments
+     * @param ParameterDefinition[] $parameters
      * @param string $body
      */
-    public function __construct($name, array $arguments, $body)
+    public function __construct($name, array $parameters, $body)
     {
         Assertion::string($name);
-        Assertion::allIsInstanceOf($arguments, ArgumentDefinition::class);
+        Assertion::allIsInstanceOf($parameters, ParameterDefinition::class);
         Assertion::string($body);
 
         $this->name = $name;
-        $this->arguments = $arguments;
+        $this->parameters = $parameters;
         $this->body = $body;
     }
 
@@ -73,10 +74,10 @@ final class MethodDefinition
     }
 
     /**
-     * @return ArgumentDefinition[]
+     * @return ParameterDefinition[]
      */
     public function getArguments()
     {
-        return $this->arguments;
+        return $this->parameters;
     }
 }

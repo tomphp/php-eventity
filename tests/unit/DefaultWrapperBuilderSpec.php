@@ -8,7 +8,7 @@ use Eventity\Code\ClassDefinition;
 use Eventity\EventEntity;
 use Eventity\Code\MethodDefinition;
 use Eventity\Code\ClassAnalyser;
-use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\Definition\ParameterDefinition;
 use Eventity\Code\FieldDefinition;
 use Eventity\Code\Value;
 
@@ -19,8 +19,8 @@ final class DefaultWrapperBuilderSpec extends ObjectBehavior
     const ENTITY_FQCN = self::NAME_SPACE . '\\' . self::ENTITY_NAME;
 
     const TEST_ACTION = 'testAction';
-    const TEST_ARG1 = 'arg1';
-    const TEST_ARG2 = 'arg2';
+    const TEST_PARAM1 = 'param1';
+    const TEST_PARAM2 = 'param2';
 
     const TEST_GETTER = 'getSomething';
 
@@ -30,11 +30,11 @@ final class DefaultWrapperBuilderSpec extends ObjectBehavior
 
         $definition = ClassDefinition::builder()
             ->setClassName('EntityWrapper')
-            ->addMethod(MethodDefinition::createPublicWithArgs(
+            ->addMethod(MethodDefinition::createPublicWithParams(
                 self::TEST_ACTION,
                 [
-                    ArgumentDefinition::create(self::TEST_ARG1),
-                    ArgumentDefinition::create(self::TEST_ARG2),
+                    ParameterDefinition::create(self::TEST_PARAM1),
+                    ParameterDefinition::create(self::TEST_PARAM2),
                 ],
                 ''
             ))
@@ -95,12 +95,12 @@ final class DefaultWrapperBuilderSpec extends ObjectBehavior
         $method->getName()->shouldBe('__construct');
     }
 
-    function it_adds_an_entity_argument_to_the_constructor()
+    function it_adds_an_entity_parameter_to_the_constructor()
     {
         $method = $this->build(self::ENTITY_FQCN)->getMethods()[0];
 
         $method->getArguments()->shouldBeLike([
-            ArgumentDefinition::create('entity'),
+            ParameterDefinition::create('entity'),
         ]);
     }
 
@@ -152,8 +152,8 @@ final class DefaultWrapperBuilderSpec extends ObjectBehavior
 
     function it_calls_the_entity_action_and_returns_the_result()
     {
-        $args = '$' . self::TEST_ARG1 . ', $' . self::TEST_ARG2;
-        $code = 'return $this->entity->' . self::TEST_ACTION . "($args);";
+        $params = '$' . self::TEST_PARAM1 . ', $' . self::TEST_PARAM2;
+        $code = 'return $this->entity->' . self::TEST_ACTION . "($params);";
 
         $this->build(self::ENTITY_FQCN)
             ->shouldDefineMethodWithCodeContaining(self::TEST_ACTION, $code);

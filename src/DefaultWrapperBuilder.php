@@ -6,7 +6,7 @@ use Eventity\Code\MethodDefinition;
 use Eventity\Code\ClassDefinition;
 use Eventity\Code\ClassDefinition\Builder;
 use Eventity\Code\ClassAnalyser;
-use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\Definition\ParameterDefinition;
 use Eventity\Event;
 use Eventity\Code\Value;
 use Eventity\Code\FieldDefinition;
@@ -47,9 +47,9 @@ final class DefaultWrapperBuilder implements WrapperBuilder
             ->addDependency(Event::class)
             ->addField(FieldDefinition::createPrivate('events', Value::emptyArray()))
             ->addField(FieldDefinition::createPrivate('entity'))
-            ->addMethod(MethodDefinition::createPublicWithArgs(
+            ->addMethod(MethodDefinition::createPublicWithParams(
                 '__construct',
-                [ArgumentDefinition::create('entity')],
+                [ParameterDefinition::create('entity')],
                 '$this->entity = $entity;' . PHP_EOL
                 . "\$this->events[] = new Event('Create', '{$entityName}');"
             ))
@@ -77,7 +77,7 @@ final class DefaultWrapperBuilder implements WrapperBuilder
             }
             $body .= $this->callEntityCode($method->getName(), $this->getArgumentNames($method));
 
-            $this->builder->addMethod(MethodDefinition::createPublicWithArgs(
+            $this->builder->addMethod(MethodDefinition::createPublicWithParams(
                 $method->getName(),
                 $method->getArguments(),
                 $body
@@ -90,8 +90,8 @@ final class DefaultWrapperBuilder implements WrapperBuilder
      */
     private function getArgumentNames(MethodDefinition $method)
     {
-        return array_map(function (ArgumentDefinition $argument) {
-            return $argument->getName();
+        return array_map(function (ParameterDefinition $parameter) {
+            return $parameter->getName();
         }, $method->getArguments());
     }
 
@@ -108,16 +108,16 @@ final class DefaultWrapperBuilder implements WrapperBuilder
 
     /**
      * @param string   $methodName
-     * @param string[] $arguments
+     * @param string[] $parameters
      *
      * @return string
      */
-    private function callEntityCode($methodName, array $arguments)
+    private function callEntityCode($methodName, array $parameters)
     {
-        $argList = implode(', ', array_map(function ($argName) {
-            return '$' . $argName;
-        }, $arguments));
+        $paramList = implode(', ', array_map(function ($paramName) {
+            return '$' . $paramName;
+        }, $parameters));
 
-        return "return \$this->entity->{$methodName}($argList);";
+        return "return \$this->entity->{$methodName}($paramList);";
     }
 }

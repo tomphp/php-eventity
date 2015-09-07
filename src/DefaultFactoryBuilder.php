@@ -4,7 +4,7 @@ namespace Eventity;
 
 use Eventity\Code\MethodDefinition;
 use Eventity\Code\ClassDefinition;
-use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\Definition\ParameterDefinition;
 
 final class DefaultFactoryBuilder implements FactoryBuilder
 {
@@ -27,9 +27,9 @@ final class DefaultFactoryBuilder implements FactoryBuilder
                 "\$entity = new \\$entityFQCN();\n"
                 . "return new \\$wrapperFQCN(\$entity);"
             ))
-            ->addMethod(MethodDefinition::createPublicWithArgs(
+            ->addMethod(MethodDefinition::createPublicWithParams(
                 self::REPLAY_METHOD,
-                [ArgumentDefinition::createWithType('array', 'events')],
+                [ParameterDefinition::createWithType('array', 'events')],
                 ''
             ))
             ->build();

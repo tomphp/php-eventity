@@ -8,7 +8,7 @@ use Eventity\Code\ClassDefinition;
 use Eventity\Code\FieldDefinition;
 use Eventity\Code\Value;
 use Eventity\Code\MethodDefinition;
-use Eventity\Code\ArgumentDefinition;
+use Eventity\Code\Definition\ParameterDefinition;
 
 final class MockEntityDeclarer
 {
@@ -30,9 +30,9 @@ final class MockEntityDeclarer
 
         $this->builder
             ->addField(FieldDefinition::createPrivate('calls', Value::emptyArray()))
-            ->addMethod(MethodDefinition::createPublicWithArgs(
+            ->addMethod(MethodDefinition::createPublicWithParams(
                 'getCalls',
-                [ArgumentDefinition::create('methodName')],
+                [ParameterDefinition::create('methodName')],
                 'return isset($this->calls[$methodName]) ? $this->calls[$methodName] : 0;'
             ));
     }

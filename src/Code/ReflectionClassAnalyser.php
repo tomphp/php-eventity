@@ -2,6 +2,7 @@
 
 namespace Eventity\Code;
 
+use Eventity\Code\Definition\ParameterDefinition;
 use Eventity\Code\MethodDefinition;
 use ReflectionClass;
 
@@ -15,16 +16,16 @@ class ReflectionClassAnalyser implements ClassAnalyser
         $reflection = new ReflectionClass($className);
 
         foreach ($reflection->getMethods() as $method) {
-            $arguments = array_map(
+            $parameters = array_map(
                 function ($parameter) {
-                    return ArgumentDefinition::create($parameter->getName());
+                    return ParameterDefinition::create($parameter->getName());
                 },
                 $method->getParameters()
             );
 
-            $builder->addMethod(MethodDefinition::createPublicWithArgs(
+            $builder->addMethod(MethodDefinition::createPublicWithParams(
                 $method->getName(),
-                $arguments,
+                $parameters,
                 ''
             ));
         }
