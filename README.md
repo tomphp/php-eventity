@@ -1,5 +1,7 @@
 # Eventity
 
+[![Software License](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
+
 An experimental library for event sourcing.
 
 ## Example of current functionality
