@@ -30,7 +30,8 @@ final class DefaultFactoryBuilder implements FactoryBuilder
             ->addMethod(MethodDefinition::createPublicWithParams(
                 self::REPLAY_METHOD,
                 [ParameterDefinition::createWithType('array', 'events')],
-                ''
+                "\$entity = new \\$entityFQCN();\n"
+                . "return new \\$wrapperFQCN(\$entity);"
             ))
             ->build();
     }

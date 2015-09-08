@@ -129,7 +129,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * @Then an instance of :className should be produced
      */
-    public function anInstanceOfTestentityShouldBeProduced($className)
+    public function anInstanceOfShouldBeProduced($className)
     {
         expect($this->instance)->toBeAnInstanceOf(
             $this->createTestClassName($className)

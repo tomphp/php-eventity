@@ -58,7 +58,7 @@ final class DefaultFactoryBuilderSpec extends ObjectBehavior
             ->shouldReturn('create');
     }
 
-    function it_make_the_default_create_method_wrap_an_instance_of_the_entity()
+    function it_makes_the_default_create_method_wrap_an_instance_of_the_entity()
     {
         $code = '$entity = new \\' . self::ENTITY_FQCN . "();\n";
         $code .= 'return new \\' . self::WRAPPER_FQCN . '($entity);';
@@ -84,5 +84,16 @@ final class DefaultFactoryBuilderSpec extends ObjectBehavior
             ->getArguments()[0]
             ->getName()
             ->shouldReturn('events');
+    }
+
+    function it_makes_creates_a_wrapped_version_of_the_entity_when_replaying_events()
+    {
+        $code = '$entity = new \\' . self::ENTITY_FQCN . "();\n";
+        $code .= 'return new \\' . self::WRAPPER_FQCN . '($entity);';
+
+        $this->factoryDefinition
+            ->getMethods()[1]
+            ->getBody()
+            ->shouldReturn($code);
     }
 }
